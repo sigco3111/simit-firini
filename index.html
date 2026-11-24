@@ -24,7 +24,7 @@
 <script>
 // error capture before anything else loads (shown by ?debug)
 window.__errors = [];
-// Resolve locale from URL ?lang, stored settings, or navigator.language for pre-module boot UI
+// Resolve locale from URL ?lang or stored settings for pre-module boot UI; Korean edition defaults to Korean
 window.__bootLang = (function () {
   try {
     var q = new URLSearchParams(location.search).get('lang');
@@ -32,7 +32,7 @@ window.__bootLang = (function () {
     var s = JSON.parse(localStorage.getItem('arena.simitfirini.settings') || 'null');
     if (s && (s.lang === 'en' || s.lang === 'tr' || s.lang === 'ko')) return s.lang;
   } catch (e) {}
-  return /^tr/i.test(navigator.language || '') ? 'tr' : (/^en/i.test(navigator.language || '') ? 'en' : 'ko');
+  return 'ko';
 })();
 requestAnimationFrame(function () { var m = document.getElementById('loadmsg'); if (m && !window.__t) m.textContent = window.__bootLang === 'en' ? 'Loading… 0/2' : window.__bootLang === 'tr' ? 'Yükleniyor… 0/2' : '로딩 중… 0/2'; });
 window.addEventListener('error', function (e) { window.__errors.push(String(e.message || e) + (e.filename ? ' @' + e.filename.split('/').pop() + ':' + e.lineno : '')); });
