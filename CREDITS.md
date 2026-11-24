@@ -7,6 +7,13 @@ All models, textures and audio are generated at runtime in code. The only asset 
   woff2 subsets are self-hosted in `assets/fonts/` (chalkboard headings and the in-world signs). Body text uses the
   system font stack.
 
+## Korean edition fonts (한국어판 글꼴)
+
+- East Sea Dokdo (동해바다) by Yang Jae-hyeon (SIL Open Font License 1.1), from Google Fonts. A Korean-subset woff2 is
+  self-hosted as `assets/fonts/eastseadokdo-ko.woff2` (headings, chalkboard menus, in-world signs).
+- Gowun Dodum (고운돋움) by Yang Jae-hyeon (SIL Open Font License 1.1), from Google Fonts. A Korean-subset woff2 is
+  self-hosted as `assets/fonts/gowundodum-ko.woff2` (body text).
+
 ## 3D chibi style (stil-3d, 24.11.2026)
 
 The figures and props in `assets/3d/` were generated for this game with the Gemini app (Nano Banana image model),
