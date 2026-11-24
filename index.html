@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="tr">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="arena-game" content="simit-firini">
-<title>Simit Fırını</title>
-<meta name="description" content="A 3D simit bakery tycoon on an old Istanbul street, redesigned as a hand-painted bakery with a chalkboard UI: knead, dip, bake and send sellers out. Plays in the browser.">
+<title>시밋 베이커리 · Simit Fırını</title>
+<meta name="description" content="이스탄불 골목의 3D 시밋 베이커리 경영 게임: 손그림 감성 베이커리와 칠판 UI. 반죽하고, 당밀에 담그고, 굽고, 판매원을 거리로 보내세요. 브라우저에서 바로 플레이.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Simit Fırını · Simit Bakery">
-<meta property="og:description" content="A 3D simit bakery tycoon on an old Istanbul street, redesigned as a hand-painted bakery with a chalkboard UI: knead, dip, bake and send sellers out. Plays in the browser.">
-<meta property="og:url" content="https://furkiozknn.github.io/simit-firini/">
-<meta property="og:image" content="https://furkiozknn.github.io/simit-firini/docs/card.jpg">
+<meta property="og:title" content="시밋 베이커리 · Simit Fırını">
+<meta property="og:description" content="이스탄불 골목의 3D 시밋 베이커리 경영 게임: 손그림 감성 베이커리와 칠판 UI. 반죽하고, 당밀에 담그고, 굽고, 판매원을 거리로 보내세요. 브라우저에서 바로 플레이.">
+<meta property="og:url" content="https://sigco3111.github.io/simit-firini/">
+<meta property="og:image" content="https://sigco3111.github.io/simit-firini/docs/card.jpg">
 <meta property="og:image:width" content="960">
 <meta property="og:image:height" content="540">
 <meta name="twitter:card" content="summary_large_image">
@@ -19,6 +19,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" href="assets/fonts/patrickhand-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/eastseadokdo-ko.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/gowundodum-ko.woff2" as="font" type="font/woff2" crossorigin>
 <script>
 // error capture before anything else loads (shown by ?debug)
 window.__errors = [];
@@ -26,15 +28,15 @@ window.__errors = [];
 window.__bootLang = (function () {
   try {
     var q = new URLSearchParams(location.search).get('lang');
-    if (q === 'en' || q === 'tr') return q;
+    if (q === 'en' || q === 'tr' || q === 'ko') return q;
     var s = JSON.parse(localStorage.getItem('arena.simitfirini.settings') || 'null');
-    if (s && (s.lang === 'en' || s.lang === 'tr')) return s.lang;
+    if (s && (s.lang === 'en' || s.lang === 'tr' || s.lang === 'ko')) return s.lang;
   } catch (e) {}
-  return /^tr/i.test(navigator.language || '') ? 'tr' : 'en';
+  return /^tr/i.test(navigator.language || '') ? 'tr' : (/^en/i.test(navigator.language || '') ? 'en' : 'ko');
 })();
-requestAnimationFrame(function () { var m = document.getElementById('loadmsg'); if (m && !window.__t) m.textContent = window.__bootLang === 'en' ? 'Loading… 0/2' : 'Yükleniyor… 0/2'; });
+requestAnimationFrame(function () { var m = document.getElementById('loadmsg'); if (m && !window.__t) m.textContent = window.__bootLang === 'en' ? 'Loading… 0/2' : window.__bootLang === 'tr' ? 'Yükleniyor… 0/2' : '로딩 중… 0/2'; });
 window.addEventListener('error', function (e) { window.__errors.push(String(e.message || e) + (e.filename ? ' @' + e.filename.split('/').pop() + ':' + e.lineno : '')); });
-window.__bootTimer = setTimeout(function () { var m = document.getElementById('loadmsg'); if (m) m.textContent = window.__t ? window.__t('loadfail') : (window.__bootLang === 'en' ? 'Could not load Three.js. Check your connection and reload the page.' : 'Three.js yüklenemedi. İnternet bağlantını kontrol edip sayfayı yenile.'); }, 12000);
+window.__bootTimer = setTimeout(function () { var m = document.getElementById('loadmsg'); if (m) m.textContent = window.__t ? window.__t('loadfail') : (window.__bootLang === 'en' ? 'Could not load Three.js. Check your connection and reload the page.' : window.__bootLang === 'tr' ? 'Three.js yüklenemedi. İnternet bağlantını kontrol edip sayfayı yenile.' : 'Three.js를 불러오지 못했어요. 인터넷 연결을 확인하고 페이지를 새로고침하세요.'); }, 12000);
 window.addEventListener('unhandledrejection', function (e) { window.__errors.push('promise: ' + String(e.reason && e.reason.message || e.reason)); });
 </script>
 <style>
@@ -47,6 +49,8 @@ window.addEventListener('unhandledrejection', function (e) { window.__errors.pus
    ============================================================================================= */
 @font-face { font-family: 'Patrick Hand'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/patrickhand-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: 'Patrick Hand'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/patrickhand-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'East Sea Dokdo'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/eastseadokdo-ko.woff2) format('woff2'); }
+@font-face { font-family: 'Gowun Dodum'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/gowundodum-ko.woff2) format('woff2'); }
 
 :root {
   /* Brand Tokens */
@@ -82,8 +86,8 @@ window.addEventListener('unhandledrejection', function (e) { window.__errors.pus
   --hudH: 52px;
 
   /* Typography */
-  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --display: 'Playfair Display', Georgia, 'Patrick Hand', serif;
+  --font: 'Plus Jakarta Sans', 'Gowun Dodum', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --display: 'East Sea Dokdo', 'Playfair Display', Georgia, 'Patrick Hand', serif;
   --hand: 'Patrick Hand', 'Segoe Print', cursive;
   --mono: 'Plus Jakarta Sans', ui-monospace, Consolas, monospace;
 }
@@ -97,6 +101,9 @@ html, body {
   font-feature-settings: 'tnum';
 }
 body { touch-action: none; user-select: none; -webkit-user-select: none; }
+/* Korean edition: break lines at word boundaries and avoid single-character orphans */
+html[lang="ko"] body { word-break: keep-all; }
+html[lang="ko"] li, html[lang="ko"] p, html[lang="ko"] td, html[lang="ko"] .modal, html[lang="ko"] .tip, html[lang="ko"] .kv { text-wrap: pretty; }
 canvas#c { position: fixed; inset: 0; width: 100%; height: 100%; display: block; outline: none; touch-action: none; }
 button, select, input { font: inherit; color: inherit; }
 svg[viewBox] { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
@@ -904,7 +911,6 @@ img.pi3 { display: inline-block; width: 26px; height: 22px; object-fit: contain;
 @media (max-height: 480px) { #title .logo3 { height: 52px; } .endfig { height: 44px; } }
 @media (max-width: 680px) { #hud .brand img.f3 { width: 28px; height: 28px; } }
 </style>
-<script data-goatcounter="https://furkiozknn.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <canvas id="c" tabindex="-1"></canvas>
@@ -963,7 +969,7 @@ img.pi3 { display: inline-block; width: 26px; height: 22px; object-fit: contain;
   <div class="modal glass box" role="dialog" aria-labelledby="tTitle">
     <div class="bunting" id="tBunting" aria-hidden="true"></div>
     <div class="logo" id="tLogo"></div>
-    <h1 id="tTitle">Simit Fırını</h1>
+    <h1 id="tTitle">시밋 베이커리</h1>
     <div class="tag1" id="tTag"></div>
     <ol class="how" id="tHow"></ol>
     <div class="menu">
@@ -1171,9 +1177,14 @@ img.pi3 { display: inline-block; width: 26px; height: 22px; object-fit: contain;
       autoPause: 'Pause when the tab is hidden', copied: 'Copied to clipboard', streak: 'Streak', days: 'days', share: 'Share',
       fbAsk: 'Did you enjoy it?', like: 'I liked it', dislike: 'I did not like it', thanks: 'Thanks!',
       freezeUsed: '❄️ A streak freeze saved the day you missed', freezeEarned: '❄️ Streak freeze earned: miss a day and your streak survives' },
+    ko: { again: '다시 하기', another: '다른 게임 해보기', close: '닫기', settings: '접근성',
+      textSize: '글자 크기', contrast: '고대비', motion: '움직임 줄이기', vibration: '진동',
+      autoPause: '탭이 숨겨지면 일시정지', copied: '클립보드에 복사됨', streak: '연속', days: '일', share: '공유',
+      fbAsk: '재미있었나요?', like: '재미있었어요', dislike: '별로였어요', thanks: '감사합니다!',
+      freezeUsed: '❄️ 연속 보호권이 놓친 하루를 살렸어요', freezeEarned: '❄️ 연속 보호권 획득: 하루를 놓쳐도 연속 기록이 유지돼요' },
   };
   var lang = 'en';
-  try { lang = /^tr/i.test((hasDOM && document.documentElement.lang) || (root.navigator && navigator.language) || '') ? 'tr' : 'en'; } catch (e) {}
+  try { lang = /^tr/i.test((hasDOM && document.documentElement.lang) || (root.navigator && navigator.language) || '') ? 'tr' : (/^en/i.test((hasDOM && document.documentElement.lang) || (root.navigator && navigator.language) || '') ? 'en' : 'ko'); } catch (e) {}
   function t(k) { return (STR[lang] && STR[lang][k]) || STR.en[k] || k; }
 
   /* ---------- game id + passport ---------- */
@@ -1416,7 +1427,7 @@ img.pi3 { display: inline-block; width: 26px; height: 22px; object-fit: contain;
     g.fillStyle = '#f6f1e6'; g.font = '700 84px system-ui,sans-serif'; g.fillText(o.title || gameId, 72, 220);
     g.font = '500 52px system-ui,sans-serif';
     (o.lines || []).forEach(function (l, i) { g.fillText(String(l), 72, 340 + i * 78); });
-    g.font = '500 36px system-ui,sans-serif'; g.fillStyle = '#c9bda4'; g.fillText(o.url || ('furkiozknn.github.io/' + gameId), 72, 1270);
+    g.font = '500 36px system-ui,sans-serif'; g.fillStyle = '#c9bda4'; g.fillText(o.url || ('sigco3111.github.io/' + gameId), 72, 1270);
     return new Promise(function (res) { c.toBlob ? c.toBlob(function (b) { res(b); }, 'image/png') : res(null); });
   }
 
@@ -1592,7 +1603,7 @@ img.pi3 { display: inline-block; width: 26px; height: 22px; object-fit: contain;
   })();
 
   root.Arena = {
-    version: VERSION, quiet: quiet, game: gameId, games: GAMES.slice(), lang: function (l) { if (l) lang = l === 'tr' ? 'tr' : 'en'; return lang; },
+    version: VERSION, quiet: quiet, game: gameId, games: GAMES.slice(), lang: function (l) { if (l) lang = (l === 'tr' || l === 'ko') ? l : 'en'; return lang; },
     perf: perf, hint: hint, toast: toast, endCard: endCard, daily: daily, share: share, shareCard: shareCard,
     profile: profile, award: award, settings: settings, openSettings: openSettings, mountSettingsButton: mountSettingsButton,
     track: track, complete: complete, portal: portal,
@@ -1782,7 +1793,7 @@ const render = {
 
 /* ---------- shell: loading overlay + shader warm-up ---------- */
 const kabuk = {
-  yukleme({ baslik = '', alt = 'Yükleniyor', renk = '#e0a01c', zemin = '#15120f' } = {}) {
+  yukleme({ baslik = '', alt = 'Loading', renk = '#e0a01c', zemin = '#15120f' } = {}) {
     if (Q.has('auto') || Q.has('capture')) return { ilerle() { }, bitir() { } };
     const el = document.createElement('div');
     el.className = 'arena-core-yukleme';
@@ -1894,9 +1905,13 @@ const coarse = (() => { try { return matchMedia('(pointer: coarse)').matches; } 
 // reduced motion: the OS setting, or the arena-kit accessibility panel when it is present (it starts from the OS setting)
 let RM = (() => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } })();
 if (window.Arena) { RM = !!Arena.settings.reducedMotion; Arena.on('settings', st => { RM = !!st.reducedMotion; }); }
-const settings = Object.assign({ master: 0.8, music: 0.6, sfx: 0.8, lang: /^tr/i.test(navigator.language || '') ? 'tr' : 'en', quality: (coarse && Math.min(innerWidth, innerHeight) < 820) ? 'low' : 'high', musicOn: true, sfxOn: true }, store.get(KEY.settings) || {});
-if (settings.lang !== 'tr' && settings.lang !== 'en') settings.lang = (/^tr/i.test(navigator.language || '') ? 'tr' : 'en'); // stored unknown language -> browser's
-if (FLAGS.lang === 'en' || FLAGS.lang === 'tr') settings.lang = FLAGS.lang;
+const settings = Object.assign({ master: 0.8, music: 0.6, sfx: 0.8, lang: /^tr/i.test(navigator.language || '') ? 'tr' : (/^en/i.test(navigator.language || '') ? 'en' : 'ko'), quality: (coarse && Math.min(innerWidth, innerHeight) < 820) ? 'low' : 'high', musicOn: true, sfxOn: true }, store.get(KEY.settings) || {});
+if (settings.lang !== 'tr' && settings.lang !== 'en' && settings.lang !== 'ko') settings.lang = 'ko'; // stored unknown language -> Korean edition default
+if (FLAGS.lang === 'en' || FLAGS.lang === 'tr' || FLAGS.lang === 'ko') settings.lang = FLAGS.lang;
+const LANG_ORDER = ['ko', 'en', 'tr'];
+const LANG_LABEL = { ko: '한국어', en: 'English', tr: 'Türkçe' };
+const LANG_SHORT = { ko: 'KO', en: 'EN', tr: 'TR' };
+function nextLang(l) { const i = LANG_ORDER.indexOf(l); return LANG_ORDER[(i < 0 ? 0 : i + 1) % LANG_ORDER.length]; }
 const saveSettings = () => store.set(KEY.settings, settings);
 const lowQ = () => FLAGS.low || settings.quality === 'low';
 
@@ -1992,11 +2007,11 @@ const TX = {};
 function addTX(o) { Object.assign(TX, o); }
 function t(k, ...a) {
   const e = TX[k]; if (!e) { (window.__missing = window.__missing || []).push(k); return k; }
-  let s = e[settings.lang === 'en' ? 1 : 0];
+  let s = e[settings.lang === 'tr' ? 0 : settings.lang === 'en' ? 1 : (e.length > 2 ? 2 : 1)];
   for (let i = 0; i < a.length; i++) s = s.split('{' + i + '}').join(a[i]);
   return s;
 }
-const nf = () => settings.lang === 'en' ? 'en-US' : 'tr-TR';
+const nf = () => settings.lang === 'en' ? 'en-US' : settings.lang === 'tr' ? 'tr-TR' : 'ko-KR';
 const money = n => Math.round(n).toLocaleString(nf()) + ' ₺';
 const money1 = n => (Math.round(n * 10) / 10).toLocaleString(nf(), { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' ₺';
 const num = n => Math.round(n).toLocaleString(nf());
@@ -2979,12 +2994,13 @@ function addProps(C, Wn) {
 }
 
 // ---------- painted decals: blue tile wainscot, chalkboards, water, foam ----------
-function fontReady(cb) { try { if (document.fonts && document.fonts.load) Promise.all([document.fonts.load('40px "Playfair Display"'), document.fonts.load('40px "Patrick Hand"')]).then(cb, cb); } catch (e) { /* no font API */ } }
+function fontReady(cb) { try { if (document.fonts && document.fonts.load) Promise.all([document.fonts.load('40px "Playfair Display"'), document.fonts.load('40px "Patrick Hand"'), document.fonts.load('40px "East Sea Dokdo"', '시밋')]).then(cb, cb); } catch (e) { /* no font API */ } }
+const TEX_REDRAW = [];
 function canvasTex(w, h, draw) {
   const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const cx = cv.getContext('2d');
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
   const go = () => { cx.clearRect(0, 0, w, h); draw(cx, w, h); tex.needsUpdate = true; };
-  go(); fontReady(go); return tex;
+  go(); fontReady(go); TEX_REDRAW.push(go); return tex;
 }
 function chalkFrame(x, w, h, wood) {
   x.fillStyle = '#24312B'; x.fillRect(0, 0, w, h);
@@ -3024,18 +3040,18 @@ function addDecals() {
   const left = new THREE.Mesh(new THREE.PlaneGeometry(10.9, 1.3), lam(tl)); left.rotation.y = Math.PI / 2; left.position.set(-10.28, FLOOR_Y + 0.65, -0.95); left.receiveShadow = true; scene.add(left);
   // chalkboard menu on the back wall
   const menu = canvasTex(640, 400, (x, w, h) => {
-    chalkFrame(x, w, h, '#6B3D1B'); x.textAlign = 'center'; x.fillStyle = '#FAF3E6'; x.font = '64px "Patrick Hand", "Comic Sans MS", cursive'; x.fillText('GÜNÜN MENÜSÜ', w / 2, 92);
-    x.font = '46px "Patrick Hand", "Comic Sans MS", cursive'; x.textAlign = 'left';
-    const rows = [['Simit', '9 ₺'], ['Poğaça', '14 ₺'], ['Açma', '12 ₺'], ['Çay', '5 ₺']];
+    chalkFrame(x, w, h, '#6B3D1B'); x.textAlign = 'center'; x.fillStyle = '#FAF3E6'; x.font = '60px "East Sea Dokdo", "Patrick Hand", "Comic Sans MS", cursive'; x.fillText(t('sign_menu_title'), w / 2, 92);
+    x.font = '42px "East Sea Dokdo", "Patrick Hand", "Comic Sans MS", cursive'; x.textAlign = 'left';
+    const rows = [[t('p_simit'), '9 ₺'], [t('p_pogaca'), '14 ₺'], [t('p_acma'), '12 ₺'], [t('p_cay'), '5 ₺']];
     rows.forEach((rw, i) => { const y = 168 + i * 56; x.fillStyle = i % 2 ? '#E6C27A' : '#FAF3E6'; x.textAlign = 'left'; x.fillText(rw[0], 80, y); x.textAlign = 'right'; x.fillText(rw[1], w - 80, y); x.fillStyle = 'rgba(250,243,230,.35)'; x.fillRect(220, y - 8, w - 440, 3); });
   });
   const mb = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 1.44), new THREE.MeshLambertMaterial({ map: menu })); mb.position.set(-7.05, FLOOR_Y + 2.65, -6.27); scene.add(mb);
   // sidewalk A-frame board
   const aframe = canvasTex(400, 520, (x, w, h) => {
-    chalkFrame(x, w, h, '#6B3D1B'); x.textAlign = 'center'; x.fillStyle = '#FAF3E6'; x.font = '76px "Patrick Hand", "Comic Sans MS", cursive'; x.fillText('SICAK', w / 2, 120); x.fillStyle = '#E6C27A'; x.font = '96px "Patrick Hand", "Comic Sans MS", cursive'; x.fillText('SİMİT', w / 2, 220);
+    chalkFrame(x, w, h, '#6B3D1B'); x.textAlign = 'center'; x.fillStyle = '#FAF3E6'; x.font = '72px "East Sea Dokdo", "Patrick Hand", "Comic Sans MS", cursive'; x.fillText(t('sign_sicak'), w / 2, 120); x.fillStyle = '#E6C27A'; x.font = '92px "East Sea Dokdo", "Patrick Hand", "Comic Sans MS", cursive'; x.fillText(t('sign_simit'), w / 2, 220);
     x.strokeStyle = '#E6C27A'; x.lineWidth = 9; x.beginPath(); x.ellipse(w / 2, 340, 62, 38, 0, 0, 7); x.stroke(); x.beginPath(); x.ellipse(w / 2, 340, 24, 12, 0, 0, 7); x.stroke();
     x.fillStyle = '#FAF3E6'; for (let i = 0; i < 14; i++) { const a = i / 14 * 6.28; x.fillRect(w / 2 + Math.cos(a) * 44 - 2, 340 + Math.sin(a) * 25 - 1, 5, 3); }
-    x.font = '52px "Patrick Hand", "Comic Sans MS", cursive'; x.fillStyle = '#FAF3E6'; x.fillText('9 ₺', w / 2, 460);
+    x.font = '50px "East Sea Dokdo", "Patrick Hand", "Comic Sans MS", cursive'; x.fillStyle = '#FAF3E6'; x.fillText('9 ₺', w / 2, 460);
   });
   const ab = new THREE.Mesh(new THREE.PlaneGeometry(0.78, 1.0), new THREE.MeshLambertMaterial({ map: aframe })); ab.position.set(5.5, streetY(5.3) + 0.78, 5.3); ab.rotation.set(-0.2, 0.62, 0); scene.add(ab);
   world.parts.boards = [mb, ab];
@@ -3116,14 +3132,15 @@ function buildStaticWorld() {
       cx.beginPath(); cx.arc(cx0, cy0, 4.5, 0, 7); cx.fill();
     }
     cx.fillStyle = '#FFFDF2';
-    cx.font = '800 50px "Playfair Display", Georgia, "Patrick Hand", serif';
+    cx.font = '800 46px "East Sea Dokdo", "Playfair Display", Georgia, "Patrick Hand", serif';
     cx.textAlign = 'center'; cx.textBaseline = 'middle';
     cx.shadowColor = 'rgba(0,0,0,0.65)'; cx.shadowBlur = 6; cx.shadowOffsetY = 2;
-    cx.fillText('SİMİT FIRINI', 256, 67);
+    cx.fillText(t('sign_shop'), 256, 67);
     cx.shadowColor = 'transparent';
   };
   drawSign();
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 2;
+  fontReady(function () { drawSign(); tex.needsUpdate = true; }); TEX_REDRAW.push(function () { drawSign(); tex.needsUpdate = true; });
   const sign = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 0.7), new THREE.MeshBasicMaterial({ map: tex })); sign.position.set(-1.0, FLOOR_Y + 3.6, -6.2); sign.position.y = FLOOR_Y + 3.6; scene.add(sign);
   world.parts.sign = sign; fontReady(() => { drawSign(); tex.needsUpdate = true; });
   addDecals();
@@ -4226,137 +4243,141 @@ function audioAmbience(dt) {
 }
 
 // =============================================================================================
-// TEXT (Turkish first, English second). Every visible string goes through t().
+// TEXT (Turkish first, English second, Korean third). Every visible string goes through t(). Korean edition: default language is Korean.
 // =============================================================================================
 addTX({
-  daily: ['Günün Meydan Okuması', 'Daily challenge'], daily_info: ['seri {0} · en iyi {1}', 'streak {0} · best {1}'], daily_done: ['bugün tamam · seri {0}', 'done today · streak {0}'],
-  daily_cont: ['devam: {0}. gün', 'continue: day {0}'], daily_start: ['Günün Meydan Okuması {0}: herkes aynı hava ve çırakla başlar', 'Daily challenge {0}: everyone starts with the same weather and apprentices'],
-  daily_res: ['Günün Meydan Okuması {0}: seri {1} gün · en iyi {2}', 'Daily challenge {0}: streak {1} · best {2}'], daily_old: ['Bu meydan okuma {0} gününündü; seri bugüne sayılmadı.', 'This challenge was for {0}; the streak was not counted for today.'],
-  ver_label: ['v{0} · {1}', 'v{0} · {1}'], ver_date: ['Kasım 2026', 'November 2026'], news_btn: ['Yenilikler', "What's new"], news_title: ['Yenilikler', "What's new"],
-  news_ver: ['Sürüm {0} · {1}', 'Version {0} · {1}'],
-  news_1: ['Son koşular: bitirdiğin her oyunun günü, kasası ve itibarı bu cihazda saklanır (son 10 oyun).', 'Recent runs: the day, till and reputation of every finished game are kept on this device (last 10 games).'],
-  news_2: ['Ana ekranda sürüm etiketi, Yenilikler penceresi ve "Diğer oyunlar" bağlantısı.', 'Title screen: version tag, a What\'s new window and an "Other games" link.'],
-  news_3: ['Telefonda ana ekran sıkıştırıldı: Ayarlar ve Dil düğmeleri artık kaydırmadan görünür.', 'Phone title screen made compact: the Settings and Language buttons show without scrolling.'],
-  news_4: ['Kayıtların ve oynanışın hiçbiri değişmedi; eski kaydınla devam edebilirsin.', 'Saves and gameplay are unchanged; you can carry on with your old save.'],
-  runs_btn: ['Son koşular', 'Recent runs'], runs_title: ['Son koşular', 'Recent runs'], runs_none: ['Henüz bitirilmiş bir oyun yok. İlk oyunun bittiğinde burada görünür.', 'No finished game yet. Your first one will show up here.'],
-  runs_date: ['Tarih', 'Date'], runs_res: ['Sonuç', 'Result'], runs_day: ['Gün', 'Day'], runs_cash: ['Kasa', 'Till'], runs_rep: ['İtibar', 'Rep.'],
-  runs_won: ['Zafer', 'Victory'], runs_bankrupt: ['İflas', 'Bankrupt'], runs_time: ['Süre doldu', 'Time up'], runs_daily: ['günlük', 'daily'],
-  runs_sum: ['{0} oyun · {1} zafer', '{0} games · {1} victories'], other_btn: ['Diğer oyunlar', 'Other games'],
-  share: ['Paylaş', 'Share'], another: ['Başka oyun', 'Another game'], a11y: ['Erişilebilirlik', 'Accessibility'], a11y_open: ['Aç', 'Open'],
-  share_won: ['{0}. günde kazandım · kasa {1} · {2} yıldız', 'Won on day {0} · till {1} · {2} stars'], share_end: ['{0}. gün · kasa {1} · {2} yıldız', 'Day {0} · till {1} · {2} stars'],
-  share_daily: ['Günün Meydan Okuması {0} · seri {1}', 'Daily challenge {0} · streak {1}'],
-  aw_win: ['Fırın ayakta: zafer', 'The bakery stands: victory'], aw_early: ['15. günden önce zafer', 'Victory before day 15'], aw_menu: ['Bütün tarifler açıldı', 'Every recipe unlocked'],
-  app: ['Simit Fırını', 'Simit Fırını'],
-  tag: ['Mahallenin en ünlü simit fırını olmaya hazır mısın?', 'Ready to run the most famous simit bakery on the street?'],
-  how1: ['Hamuru yoğur, şekillendir, pekmeze batır, susama bula ve fırında pişir.', 'Knead, shape, dip in molasses, roll in sesame and bake.'],
-  how2: ['İşçileri tezgâhlara sürükle; simitçileri sokaktaki noktalara gönder.', 'Drag workers onto stations; send simitçi to the street spots.'],
-  how3: ['Hedef: {0}. günün sonunda {1} kasa ve {2} yıldız itibar.', 'Goal: by the end of day {0}, {1} in the till and {2} stars.'],
-  how4: ['Kaydır: sürükle · Yakınlaştır: tekerlek veya iki parmak.', 'Pan: drag · Zoom: wheel or two fingers.'],
-  play: ['Oyna', 'Play'], cont: ['Devam et', 'Continue'], settings: ['Ayarlar', 'Settings'], langBtn: ['EN', 'TR'], langName: ['English', 'Türkçe'],
-  loading: ['Yükleniyor… {0}/{1}', 'Loading… {0}/{1}'], loadfail: ['Three.js yüklenemedi. İnternet bağlantını kontrol edip sayfayı yenile.', 'Could not load Three.js. Check your connection and reload the page.'],
-  best_none: ['Henüz bir sonuç yok.', 'No result yet.'], best_win: ['En iyi: {0}. günde zafer · kasa {1}', 'Best: victory on day {0} · till {1}'], best_run: ['En iyi: {0}. günde {1} kasa', 'Best: {1} on day {0}'],
-  day: ['Gün {0}/{1}', 'Day {0}/{1}'], dayEnd: ['Gün {0}', 'Day {0}'],
-  wx_sunny: ['Güneşli', 'Sunny'], wx_cloudy: ['Bulutlu', 'Cloudy'], wx_rain: ['Yağmurlu', 'Rainy'], wx_cold: ['Soğuk', 'Cold'],
-  mod_festival: ['Festival günü: herkes sokakta', 'Festival day: everyone is out'], mod_ferry: ['Vapur grevi: iskele sakin', 'Ferry strike: the pier is quiet'], mod_spike: ['Un ve tereyağı zamlandı', 'Flour and butter prices spiked'],
-  ph_prep: ['Hazırlık', 'Prep'], ph_dawn: ['Sabah koşuşturması', 'Morning rush'], ph_noon: ['Öğle durgunluğu', 'Slow noon'], ph_eve: ['Akşam koşuşturması', 'Evening rush'], ph_night: ['Kapanış', 'Closing'], ph_plan: ['Planlama', 'Planning'],
-  pause: ['Duraklat', 'Pause'], resume: ['Devam', 'Resume'], paused: ['Duraklatıldı', 'Paused'], restart: ['Yeniden başla', 'Restart'], menu: ['Ana menü', 'Main menu'],
-  music: ['Müzik (M)', 'Music (M)'], sfx: ['Efektler (X)', 'Effects (X)'], language: ['Dil (L)', 'Language (L)'],
-  set_title: ['Ayarlar', 'Settings'], vol_master: ['Genel ses', 'Master volume'], vol_music: ['Müzik', 'Music'], vol_sfx: ['Efektler', 'Effects'], lang_lbl: ['Dil', 'Language'], quality: ['Kalite', 'Quality'], q_low: ['Düşük', 'Low'], q_high: ['Yüksek', 'High'], fullscreen: ['Tam ekran', 'Fullscreen'], done: ['Tamam', 'Done'],
-  st_knead: ['Yoğurma', 'Kneading'], st_shape: ['Şekil verme', 'Shaping'], st_dip: ['Pekmez', 'Molasses'], st_sesame: ['Susam', 'Sesame'], st_oven: ['Fırın', 'Oven'],
-  sp_shop: ['Dükkân', 'Shop'], sp_pier: ['İskele', 'Pier'], sp_school: ['Okul', 'School'], sp_park: ['Park', 'Park'], sp_office: ['Ofis', 'Office'], sp_tea: ['Çay ocağı', 'Tea house'],
-  racks: ['Raflar', 'Racks'],
-  p_simit: ['Simit', 'Simit'], p_pogaca: ['Poğaça', 'Poğaça'], p_acma: ['Açma', 'Açma'], p_catal: ['Çatal', 'Çatal'], p_pide: ['Pide', 'Pide'],
-  i_flour: ['Un', 'Flour'], i_water: ['Su', 'Water'], i_molasses: ['Pekmez', 'Molasses'], i_sesame: ['Susam', 'Sesame'], i_butter: ['Tereyağı', 'Butter'], i_cheese: ['Peynir', 'Cheese'],
-  fl_ok: ['Çalışıyor', 'Running'], fl_starved: ['Önceki adımı bekliyor', 'Waiting for the previous step'], fl_blocked: ['Sonraki adım dolu', 'Next step is full'], fl_noing: ['{0} bitti!', 'Out of {0}!'], fl_full: ['Raflar dolu: fırın bekliyor', 'Racks full: the oven waits'], fl_idle: ['Boşta', 'Idle'],
+  daily: ['Günün Meydan Okuması', 'Daily challenge', '오늘의 도전'], daily_info: ['seri {0} · en iyi {1}', 'streak {0} · best {1}', '연속 {0} · 최고 {1}'], daily_done: ['bugün tamam · seri {0}', 'done today · streak {0}', '오늘 완료 · 연속 {0}'],
+  daily_cont: ['devam: {0}. gün', 'continue: day {0}', '이어하기: {0}일차'], daily_start: ['Günün Meydan Okuması {0}: herkes aynı hava ve çırakla başlar', 'Daily challenge {0}: everyone starts with the same weather and apprentices', '오늘의 도전 {0}: 모두 같은 날씨와 견습생으로 시작해요'],
+  daily_res: ['Günün Meydan Okuması {0}: seri {1} gün · en iyi {2}', 'Daily challenge {0}: streak {1} · best {2}', '오늘의 도전 {0}: 연속 {1}일 · 최고 {2}'], daily_old: ['Bu meydan okuma {0} gününündü; seri bugüne sayılmadı.', 'This challenge was for {0}; the streak was not counted for today.', '이 도전은 {0}의 도전이었어요. 연속 기록은 오늘에 계산되지 않았어요.'],
+  ver_label: ['v{0} · {1}', 'v{0} · {1}', 'v{0} · {1}'], ver_date: ['Kasım 2026', 'November 2026', '2026년 11월'], news_btn: ['Yenilikler', "What's new", '새 소식'], news_title: ['Yenilikler', "What's new", '새 소식'],
+  news_ver: ['Sürüm {0} · {1}', 'Version {0} · {1}', '버전 {0} · {1}'],
+  news_1: ['Son koşular: bitirdiğin her oyunun günü, kasası ve itibarı bu cihazda saklanır (son 10 oyun).', 'Recent runs: the day, till and reputation of every finished game are kept on this device (last 10 games).', '최근 기록: 완료한 게임의 일차, 금고, 평판이 이 기기에 저장돼요 (최근 10게임).'],
+  news_2: ['Ana ekranda sürüm etiketi, Yenilikler penceresi ve "Diğer oyunlar" bağlantısı.', 'Title screen: version tag, a What\'s new window and an "Other games" link.', '시작 화면에 버전 표시, 새 소식 창, "다른 게임" 링크가 생겼어요.'],
+  news_3: ['Telefonda ana ekran sıkıştırıldı: Ayarlar ve Dil düğmeleri artık kaydırmadan görünür.', 'Phone title screen made compact: the Settings and Language buttons show without scrolling.', '스마트폰 시작 화면을 간결하게 다듬었어요: 설정과 언어 버튼을 스크롤 없이 볼 수 있어요.'],
+  news_4: ['Kayıtların ve oynanışın hiçbiri değişmedi; eski kaydınla devam edebilirsin.', 'Saves and gameplay are unchanged; you can carry on with your old save.', '저장 데이터와 게임 플레이는 그대로예요. 기존 저장으로 이어서 할 수 있어요.'],
+  runs_btn: ['Son koşular', 'Recent runs', '최근 기록'], runs_title: ['Son koşular', 'Recent runs', '최근 기록'], runs_none: ['Henüz bitirilmiş bir oyun yok. İlk oyunun bittiğinde burada görünür.', 'No finished game yet. Your first one will show up here.', '아직 완료한 게임이 없어요. 첫 게임이 끝나면 여기에 표시돼요.'],
+  runs_date: ['Tarih', 'Date', '날짜'], runs_res: ['Sonuç', 'Result', '결과'], runs_day: ['Gün', 'Day', '일차'], runs_cash: ['Kasa', 'Till', '금고'], runs_rep: ['İtibar', 'Rep.', '평판'],
+  runs_won: ['Zafer', 'Victory', '승리'], runs_bankrupt: ['İflas', 'Bankrupt', '파산'], runs_time: ['Süre doldu', 'Time up', '시간 종료'], runs_daily: ['günlük', 'daily', '일일'],
+  runs_sum: ['{0} oyun · {1} zafer', '{0} games · {1} victories', '{0}게임 · {1}승'], other_btn: ['Diğer oyunlar', 'Other games', '다른 게임'],
+  share: ['Paylaş', 'Share', '공유'], another: ['Başka oyun', 'Another game', '다른 게임'], a11y: ['Erişilebilirlik', 'Accessibility', '접근성'], a11y_open: ['Aç', 'Open', '열기'],
+  share_won: ['{0}. günde kazandım · kasa {1} · {2} yıldız', 'Won on day {0} · till {1} · {2} stars', '{0}일차에 승리 · 금고 {1} · 별 {2}개'], share_end: ['{0}. gün · kasa {1} · {2} yıldız', 'Day {0} · till {1} · {2} stars', '{0}일차 · 금고 {1} · 별 {2}개'],
+  share_daily: ['Günün Meydan Okuması {0} · seri {1}', 'Daily challenge {0} · streak {1}', '오늘의 도전 {0} · 연속 {1}'],
+  aw_win: ['Fırın ayakta: zafer', 'The bakery stands: victory', '빵집은 살아남았다: 승리'], aw_early: ['15. günden önce zafer', 'Victory before day 15', '15일차 전 승리'], aw_menu: ['Bütün tarifler açıldı', 'Every recipe unlocked', '모든 레시피 해금'],
+  app: ['Simit Fırını', 'Simit Fırını', '시밋 베이커리'],
+  tag: ['Mahallenin en ünlü simit fırını olmaya hazır mısın?', 'Ready to run the most famous simit bakery on the street?', '동네에서 가장 유명한 시밋 베이커리를 운영할 준비가 됐나요?'],
+  how1: ['Hamuru yoğur, şekillendir, pekmeze batır, susama bula ve fırında pişir.', 'Knead, shape, dip in molasses, roll in sesame and bake.', '반죽하고, 모양을 만들고, 당밀에 담그고, 참깨를 묻혀 오븐에 구워요.'],
+  how2: ['İşçileri tezgâhlara sürükle; simitçileri sokaktaki noktalara gönder.', 'Drag workers onto stations; send simitçi to the street spots.', '직원을 작업대로 끌어놓고, 판매원을 거리 지점으로 보내세요.'],
+  how3: ['Hedef: {0}. günün sonunda {1} kasa ve {2} yıldız itibar.', 'Goal: by the end of day {0}, {1} in the till and {2} stars.', '목표: {0}일차가 끝날 때까지 금고 {1}, 평판 별 {2}개.'],
+  how4: ['Kaydır: sürükle · Yakınlaştır: tekerlek veya iki parmak.', 'Pan: drag · Zoom: wheel or two fingers.', '화면 이동: 드래그 · 확대/축소: 휠 또는 두 손가락.'],
+  play: ['Oyna', 'Play', '시작'], cont: ['Devam et', 'Continue', '이어하기'], settings: ['Ayarlar', 'Settings', '설정'], langBtn: ['EN', 'TR', 'EN'], langName: ['English', 'Türkçe', 'English'],
+  loading: ['Yükleniyor… {0}/{1}', 'Loading… {0}/{1}', '로딩 중… {0}/{1}'], loadfail: ['Three.js yüklenemedi. İnternet bağlantını kontrol edip sayfayı yenile.', 'Could not load Three.js. Check your connection and reload the page.', 'Three.js를 불러오지 못했어요. 인터넷 연결을 확인하고 페이지를 새로고침하세요.'],
+  best_none: ['Henüz bir sonuç yok.', 'No result yet.', '아직 기록이 없어요.'], best_win: ['En iyi: {0}. günde zafer · kasa {1}', 'Best: victory on day {0} · till {1}', '최고: {0}일차 승리 · 금고 {1}'], best_run: ['En iyi: {0}. günde {1} kasa', 'Best: {1} on day {0}', '최고: {0}일차 {1}'],
+  day: ['Gün {0}/{1}', 'Day {0}/{1}', '{0}/{1}일차'], dayEnd: ['Gün {0}', 'Day {0}', '{0}일차'],
+  wx_sunny: ['Güneşli', 'Sunny', '맑음'], wx_cloudy: ['Bulutlu', 'Cloudy', '흐림'], wx_rain: ['Yağmurlu', 'Rainy', '비'], wx_cold: ['Soğuk', 'Cold', '추움'],
+  mod_festival: ['Festival günü: herkes sokakta', 'Festival day: everyone is out', '축제의 날: 모두 거리로 나왔어요'], mod_ferry: ['Vapur grevi: iskele sakin', 'Ferry strike: the pier is quiet', '페리 파업: 선착장이 한산해요'], mod_spike: ['Un ve tereyağı zamlandı', 'Flour and butter prices spiked', '밀가루와 버터 가격 급등'],
+  ph_prep: ['Hazırlık', 'Prep', '준비'], ph_dawn: ['Sabah koşuşturması', 'Morning rush', '아침 대목'], ph_noon: ['Öğle durgunluğu', 'Slow noon', '한산한 점심'], ph_eve: ['Akşam koşuşturması', 'Evening rush', '저녁 대목'], ph_night: ['Kapanış', 'Closing', '마감'], ph_plan: ['Planlama', 'Planning', '계획'],
+  pause: ['Duraklat', 'Pause', '일시정지'], resume: ['Devam', 'Resume', '계속'], paused: ['Duraklatıldı', 'Paused', '일시정지됨'], restart: ['Yeniden başla', 'Restart', '다시 시작'], menu: ['Ana menü', 'Main menu', '메인 메뉴'],
+  music: ['Müzik (M)', 'Music (M)', '음악 (M)'], sfx: ['Efektler (X)', 'Effects (X)', '효과음 (X)'], language: ['Dil (L)', 'Language (L)', '언어 (L)'],
+  set_title: ['Ayarlar', 'Settings', '설정'], vol_master: ['Genel ses', 'Master volume', '전체 음량'], vol_music: ['Müzik', 'Music', '음악'], vol_sfx: ['Efektler', 'Effects', '효과음'], lang_lbl: ['Dil', 'Language', '언어'], quality: ['Kalite', 'Quality', '화질'], q_low: ['Düşük', 'Low', '낮음'], q_high: ['Yüksek', 'High', '높음'], fullscreen: ['Tam ekran', 'Fullscreen', '전체 화면'], done: ['Tamam', 'Done', '완료'],
+  st_knead: ['Yoğurma', 'Kneading', '반죽'], st_shape: ['Şekil verme', 'Shaping', '성형'], st_dip: ['Pekmez', 'Molasses', '당밀'], st_sesame: ['Susam', 'Sesame', '참깨'], st_oven: ['Fırın', 'Oven', '오븐'],
+  sp_shop: ['Dükkân', 'Shop', '가게'], sp_pier: ['İskele', 'Pier', '선착장'], sp_school: ['Okul', 'School', '학교'], sp_park: ['Park', 'Park', '공원'], sp_office: ['Ofis', 'Office', '사무실'], sp_tea: ['Çay ocağı', 'Tea house', '찻집'],
+  racks: ['Raflar', 'Racks', '진열대'],
+  p_simit: ['Simit', 'Simit', '시밋'], p_pogaca: ['Poğaça', 'Poğaça', '포아차'], p_acma: ['Açma', 'Açma', '아치마'], p_catal: ['Çatal', 'Çatal', '차탈'], p_pide: ['Pide', 'Pide', '피데'],
+  i_flour: ['Un', 'Flour', '밀가루'], i_water: ['Su', 'Water', '물'], i_molasses: ['Pekmez', 'Molasses', '당밀'], i_sesame: ['Susam', 'Sesame', '참깨'], i_butter: ['Tereyağı', 'Butter', '버터'], i_cheese: ['Peynir', 'Cheese', '치즈'],
+  fl_ok: ['Çalışıyor', 'Running', '작동 중'], fl_starved: ['Önceki adımı bekliyor', 'Waiting for the previous step', '이전 단계를 기다리는 중'], fl_blocked: ['Sonraki adım dolu', 'Next step is full', '다음 단계가 가득 참'], fl_noing: ['{0} bitti!', 'Out of {0}!', '{0} 부족!'], fl_full: ['Raflar dolu: fırın bekliyor', 'Racks full: the oven waits', '진열대가 가득 참: 오븐 대기'], fl_idle: ['Boşta', 'Idle', '대기'],
   // dock + panels
-  plan: ['Plan', 'Plan'], sales: ['Satışlar', 'Sales'], open_shop: ['Dükkânı aç', 'Open the shop'], close: ['Kapat', 'Close'],
-  plan_title: ['Gün {0} planı', 'Day {0} plan'], plan_mid: ['Plan (gün sürüyor)', 'Plan (day in progress)'],
-  tab_prod: ['Üretim ve fiyat', 'Production and prices'], tab_supply: ['Tedarik', 'Supply'], tab_street: ['Sokak', 'Street'], tab_staff: ['Ekip', 'Staff'], tab_shop: ['Gelişim', 'Growth'],
-  forecast: ['Bugün: {0} · Yarın tahmini: {1}', 'Today: {0} · Tomorrow (forecast): {1}'],
-  col_product: ['Ürün', 'Product'], col_cost: ['Maliyet', 'Cost'], col_price: ['Fiyat', 'Price'], col_target: ['Raf hedefi', 'Shelf target'], col_stock: ['Rafta', 'On shelf'],
-  hint_target: ['Raf hedefi: raftaki ve üretimdeki parça sayısı bu değere ulaşınca yoğurma durur. Fiyatı çok yükseltirsen müşteri kaçar.', 'Shelf target: kneading stops once shelf plus work-in-progress reaches this number. Raise the price too far and buyers walk away.'],
-  unlock: ['Tarifi al: {0}', 'Buy recipe: {0}'], unlock_day: ['{0}. günde açılır', 'Unlocks on day {0}'], margin: ['kâr {0}', 'margin {0}'],
-  col_ing: ['Malzeme', 'Ingredient'], col_stockI: ['Stok', 'Stock'], col_incoming: ['Yolda', 'On the way'], col_buy: ['Al', 'Buy'],
-  stock_up: ['Bugüne yetecek kadar al', 'Stock up for today'], van_note: ['Plan sırasındaki sipariş sabahın ilk dakikalarında gelir; gün içinde verilen sipariş yarım dakikada. 100+ alımda %5, 300+ alımda %10 indirim.', 'Orders placed while planning arrive at dawn; orders placed during the day take about half a minute. 5% off from 100 units, 10% off from 300.'],
-  street_note: ['Her noktada en fazla 2 simitçi çalışır. Talep günün saatine ve havaya göre değişir; yağmurda park ve iskele boşalır, soğukta çay ocakları dolar.', 'Up to 2 simitçi per spot. Demand follows the hour and the weather: rain empties the park and pier, cold fills the tea houses.'],
-  expected: ['Tahmini müşteri', 'Expected buyers'], sellers: ['Simitçi', 'Sellers'], send: ['Gönder', 'Send'], recall: ['Geri çağır', 'Recall'], no_idle: ['Boşta çalışan yok: Ekip sekmesinden birini serbest bırak.', 'No idle worker: free one in the Staff tab.'],
-  workers: ['Çalışanlar', 'Workers'], speed: ['Hız', 'Speed'], skill: ['Beceri', 'Skill'], wage: ['Yevmiye', 'Wage'], task: ['Görev', 'Task'], idle: ['Boşta', 'Idle'], fire: ['İşten çıkar', 'Let go'], hire: ['İşe al ({0})', 'Hire ({0})'], candidates: ['Adaylar', 'Candidates'], team_full: ['Ekip dolu', 'Team is full'],
-  staff_note: ['Çalışanı 3B sahnede bir tezgâha ya da sokaktaki bir noktaya da sürükleyebilirsin. Fırında kimse yoksa pişenler yanar!', 'You can also drag a worker onto a station or street spot in the 3D scene. An unattended oven burns the bread!'],
-  upg_station: ['{0} hızı', '{0} speed'], upg_oven: ['Fırın: yuva ve ısı', 'Oven: slots and heat'], upg_oven2: ['İkinci fırın', 'Second oven'], upg_bike: ['Teslimat bisikleti', 'Delivery bike'], upg_shop: ['Dükkânı büyüt', 'Bigger shop'],
-  upg_bike_d: ['Simitçiler yarı sürede döner, tepsi 12 adet büyür.', 'Sellers return in half the time and trays hold 12 more.'], upg_shop_d: ['Raf kapasitesi ve dükkân talebi artar, kira yükselir.', 'More shelf space and shop demand; rent goes up.'], upg_oven_d: ['+2 yuva, %8 daha hızlı pişirme.', '+2 slots, 8% faster baking.'], upg_oven2_d: ['Aynı seviyede ikinci bir fırın.', 'A second oven at the same level.'],
-  level: ['Seviye {0}', 'Level {0}'], maxed: ['En üst seviye', 'Maxed out'], buy: ['Satın al', 'Buy'], upgrade: ['Yükselt', 'Upgrade'], owned: ['Alındı', 'Owned'],
-  contracts: ['Sözleşmeler', 'Contracts'], accept: ['Kabul et', 'Accept'], no_offers: ['Şu an teklif yok.', 'No offers right now.'], active_c: ['Aktif', 'Active'],
-  c_tea1: ['Köşe Çay Ocağı', 'Corner Tea House'], c_tea2: ['Vapur Çay Evi', 'Ferry Tea House'], c_school: ['Okul kantini', 'School canteen'],
-  c_line: ['{0} adet {1} · saat {2} · adedi {3}', '{0} × {1} · by {2} · {3} each'], c_note: ['Sözleşme parçaları rezerve edilir. Tutmazsan ceza ve itibar kaybı olur.', 'Contract pieces are reserved. Missing it costs a fine and reputation.'],
-  why_cash: ['Yeterli para yok.', 'Not enough money.'], why_day: ['Henüz açılmadı.', 'Not unlocked yet.'], why_max: ['Zaten en üstte.', 'Already maxed.'], why_full: ['Bu noktada yer yok.', 'That spot is full.'], why_shop: ['Dükkân bir sokak noktası değil.', 'The shop is not a street spot.'], why_gone: ['Artık yok.', 'Not available anymore.'], why_phase: ['Şu an olmaz.', 'Not right now.'], why_locked: ['Önce tarifi al.', 'Buy the recipe first.'], why_late: ['Teslim saati geçti.', 'Delivery hour has passed.'],
+  plan: ['Plan', 'Plan', '계획'], sales: ['Satışlar', 'Sales', '판매'], open_shop: ['Dükkânı aç', 'Open the shop', '가게 열기'], close: ['Kapat', 'Close', '닫기'],
+  plan_title: ['Gün {0} planı', 'Day {0} plan', '{0}일차 계획'], plan_mid: ['Plan (gün sürüyor)', 'Plan (day in progress)', '계획 (하루 진행 중)'],
+  tab_prod: ['Üretim ve fiyat', 'Production and prices', '생산·가격'], tab_supply: ['Tedarik', 'Supply', '발주'], tab_street: ['Sokak', 'Street', '거리'], tab_staff: ['Ekip', 'Staff', '직원'], tab_shop: ['Gelişim', 'Growth', '성장'],
+  forecast: ['Bugün: {0} · Yarın tahmini: {1}', 'Today: {0} · Tomorrow (forecast): {1}', '오늘: {0} · 내일 예보: {1}'],
+  col_product: ['Ürün', 'Product', '제품'], col_cost: ['Maliyet', 'Cost', '원가'], col_price: ['Fiyat', 'Price', '가격'], col_target: ['Raf hedefi', 'Shelf target', '진열 목표'], col_stock: ['Rafta', 'On shelf', '진열'],
+  hint_target: ['Raf hedefi: raftaki ve üretimdeki parça sayısı bu değere ulaşınca yoğurma durur. Fiyatı çok yükseltirsen müşteri kaçar.', 'Shelf target: kneading stops once shelf plus work-in-progress reaches this number. Raise the price too far and buyers walk away.', '진열 목표: 진열된 것과 생산 중인 것의 합이 이 수치에 도달하면 반죽을 멈춰요. 가격을 너무 올리면 손님이 떠나요.'],
+  unlock: ['Tarifi al: {0}', 'Buy recipe: {0}', '레시피 구매: {0}'], unlock_day: ['{0}. günde açılır', 'Unlocks on day {0}', '{0}일차에 해금'], margin: ['kâr {0}', 'margin {0}', '이익 {0}'],
+  col_ing: ['Malzeme', 'Ingredient', '재료'], col_stockI: ['Stok', 'Stock', '재고'], col_incoming: ['Yolda', 'On the way', '배송 중'], col_buy: ['Al', 'Buy', '구매'],
+  stock_up: ['Bugüne yetecek kadar al', 'Stock up for today', '오늘치 채우기'], van_note: ['Plan sırasındaki sipariş sabahın ilk dakikalarında gelir; gün içinde verilen sipariş yarım dakikada. 100+ alımda %5, 300+ alımda %10 indirim.', 'Orders placed while planning arrive at dawn; orders placed during the day take about half a minute. 5% off from 100 units, 10% off from 300.', '계획 단계의 주문은 아침에 도착하고, 하루 중 주문은 약 30초 걸려요. 100개 이상 5%, 300개 이상 10% 할인.'],
+  street_note: ['Her noktada en fazla 2 simitçi çalışır. Talep günün saatine ve havaya göre değişir; yağmurda park ve iskele boşalır, soğukta çay ocakları dolar.', 'Up to 2 simitçi per spot. Demand follows the hour and the weather: rain empties the park and pier, cold fills the tea houses.', '한 지점에 최대 2명의 판매원이 일해요. 수요는 시간과 날씨에 따라 달라져요: 비가 오면 공원과 선착장이 비고, 추우면 찻집이 붐벼요.'],
+  expected: ['Tahmini müşteri', 'Expected buyers', '예상 손님'], sellers: ['Simitçi', 'Sellers', '판매원'], send: ['Gönder', 'Send', '보내기'], recall: ['Geri çağır', 'Recall', '불러오기'], no_idle: ['Boşta çalışan yok: Ekip sekmesinden birini serbest bırak.', 'No idle worker: free one in the Staff tab.', '대기 중인 직원이 없어요: 직원 탭에서 한 명을 비워주세요.'],
+  workers: ['Çalışanlar', 'Workers', '직원'], speed: ['Hız', 'Speed', '속도'], skill: ['Beceri', 'Skill', '숙련'], wage: ['Yevmiye', 'Wage', '일급'], task: ['Görev', 'Task', '작업'], idle: ['Boşta', 'Idle', '대기'], fire: ['İşten çıkar', 'Let go', '내보내기'], hire: ['İşe al ({0})', 'Hire ({0})', '고용 ({0})'], candidates: ['Adaylar', 'Candidates', '지원자'], team_full: ['Ekip dolu', 'Team is full', '직원이 가득 찼어요'],
+  staff_note: ['Çalışanı 3B sahnede bir tezgâha ya da sokaktaki bir noktaya da sürükleyebilirsin. Fırında kimse yoksa pişenler yanar!', 'You can also drag a worker onto a station or street spot in the 3D scene. An unattended oven burns the bread!', '3D 화면에서 직원을 작업대나 거리 지점으로 끌어놓을 수도 있어요. 오븐에 아무도 없으면 빵이 타요!'],
+  upg_station: ['{0} hızı', '{0} speed', '{0} 속도'], upg_oven: ['Fırın: yuva ve ısı', 'Oven: slots and heat', '오븐: 화구와 화력'], upg_oven2: ['İkinci fırın', 'Second oven', '두 번째 오븐'], upg_bike: ['Teslimat bisikleti', 'Delivery bike', '배달 자전거'], upg_shop: ['Dükkânı büyüt', 'Bigger shop', '가게 확장'],
+  upg_bike_d: ['Simitçiler yarı sürede döner, tepsi 12 adet büyür.', 'Sellers return in half the time and trays hold 12 more.', '판매원이 절반 시간에 돌아오고 쟁반에 12개 더 실어요.'], upg_shop_d: ['Raf kapasitesi ve dükkân talebi artar, kira yükselir.', 'More shelf space and shop demand; rent goes up.', '진열 공간과 가게 수요가 늘고 임대료가 올라요.'], upg_oven_d: ['+2 yuva, %8 daha hızlı pişirme.', '+2 slots, 8% faster baking.', '화구 +2, 굽기 8% 빨라져요.'], upg_oven2_d: ['Aynı seviyede ikinci bir fırın.', 'A second oven at the same level.', '같은 등급의 오븐 하나 더.'],
+  level: ['Seviye {0}', 'Level {0}', '레벨 {0}'], maxed: ['En üst seviye', 'Maxed out', '최고 레벨'], buy: ['Satın al', 'Buy', '구매'], upgrade: ['Yükselt', 'Upgrade', '업그레이드'], owned: ['Alındı', 'Owned', '보유함'],
+  contracts: ['Sözleşmeler', 'Contracts', '계약'], accept: ['Kabul et', 'Accept', '수락'], no_offers: ['Şu an teklif yok.', 'No offers right now.', '지금은 제안이 없어요.'], active_c: ['Aktif', 'Active', '진행 중'],
+  c_tea1: ['Köşe Çay Ocağı', 'Corner Tea House', '모퉁이 찻집'], c_tea2: ['Vapur Çay Evi', 'Ferry Tea House', '페리 찻집'], c_school: ['Okul kantini', 'School canteen', '학교 매점'],
+  c_line: ['{0} adet {1} · saat {2} · adedi {3}', '{0} × {1} · by {2} · {3} each', '{0}개 {1} · {2}시까지 · 개당 {3}'], c_note: ['Sözleşme parçaları rezerve edilir. Tutmazsan ceza ve itibar kaybı olur.', 'Contract pieces are reserved. Missing it costs a fine and reputation.', '계약 물량은 예약돼요. 못 맞추면 벌금과 평판 하락이 있어요.'],
+  why_cash: ['Yeterli para yok.', 'Not enough money.', '돈이 부족해요.'], why_day: ['Henüz açılmadı.', 'Not unlocked yet.', '아직 해금되지 않았어요.'], why_max: ['Zaten en üstte.', 'Already maxed.', '이미 최고예요.'], why_full: ['Bu noktada yer yok.', 'That spot is full.', '그 지점은 자리가 없어요.'], why_shop: ['Dükkân bir sokak noktası değil.', 'The shop is not a street spot.', '가게는 거리 지점이 아니에요.'], why_gone: ['Artık yok.', 'Not available anymore.', '더 이상 없어요.'], why_phase: ['Şu an olmaz.', 'Not right now.', '지금은 안 돼요.'], why_locked: ['Önce tarifi al.', 'Buy the recipe first.', '먼저 레시피를 사야 해요.'], why_late: ['Teslim saati geçti.', 'Delivery hour has passed.', '납품 시간이 지났어요.'],
   // sales panel + side panel
-  today: ['Bugün', 'Today'], revenue: ['Ciro', 'Revenue'], sold: ['Satılan', 'Sold'], missed: ['Kaçan müşteri', 'Lost buyers'], goal: ['Hedef', 'Goal'], rep: ['İtibar', 'Reputation'], lira: ['Kasa', 'Till'],
-  lg_sold: ['Satılan', 'Sold'], lg_dem: ['Talep', 'Demand'], chart_title: ['Saatlik satış', 'Sales by hour'], spots_title: ['Noktalar', 'Spots'],
-  goal_line: ['{0} kasa ve {1} yıldız · gün {2}', '{0} in the till and {1} stars · day {2}'],
-  rate: ['Hız', 'Rate'], per_min: ['{0}/dk', '{0}/min'], assign_here: ['Buraya ata', 'Assign here'], remove: ['Çıkar', 'Remove'], nobody: ['Kimse yok: yoğurma yarım hızla sahibi tarafından yapılır (%30).', 'Nobody here: the owner covers it at 30% speed.'],
-  slots: ['{0} yuva', '{0} slots'], baking: ['{0} pişiyor', '{0} baking'], done_wait: ['{0} çıkarılmayı bekliyor', '{0} waiting to be pulled'], burnt_today: ['Bugün yanan: {0}', 'Burnt today: {0}'],
-  needs: ['Gerekenler', 'Needs'], waiting: ['Bekleyen: {0}', 'Waiting: {0}'], no_unit: ['—', '—'],
-  demand_now: ['Şu anki talep', 'Demand now'], per_hr: ['{0}/saat', '{0}/hour'], spot_note_shop: ['Dükkândan satış raflardan yapılır.', 'The shop sells straight from the racks.'], tray: ['Tepside', 'On tray'], state_load: ['Tepsi dolduruyor', 'Loading tray'], state_go: ['Yolda', 'Walking out'], state_sell: ['Satıyor', 'Selling'], state_back: ['Geri dönüyor', 'Walking back'],
-  worker_card: ['Çalışan', 'Worker'], stock_title: ['Raf stoğu', 'Shelf stock'], target_short: ['hedef', 'target'],
+  today: ['Bugün', 'Today', '오늘'], revenue: ['Ciro', 'Revenue', '매출'], sold: ['Satılan', 'Sold', '판매'], missed: ['Kaçan müşteri', 'Lost buyers', '놓친 손님'], goal: ['Hedef', 'Goal', '목표'], rep: ['İtibar', 'Reputation', '평판'], lira: ['Kasa', 'Till', '금고'],
+  lg_sold: ['Satılan', 'Sold', '판매'], lg_dem: ['Talep', 'Demand', '수요'], chart_title: ['Saatlik satış', 'Sales by hour', '시간대별 판매'], spots_title: ['Noktalar', 'Spots', '지점'],
+  goal_line: ['{0} kasa ve {1} yıldız · gün {2}', '{0} in the till and {1} stars · day {2}', '금고 {0} · 별 {1}개 · {2}일차'],
+  rate: ['Hız', 'Rate', '속도'], per_min: ['{0}/dk', '{0}/min', '{0}/분'], assign_here: ['Buraya ata', 'Assign here', '여기에 배치'], remove: ['Çıkar', 'Remove', '빼기'], nobody: ['Kimse yok: yoğurma yarım hızla sahibi tarafından yapılır (%30).', 'Nobody here: the owner covers it at 30% speed.', '아무도 없어요: 주인이 30% 속도로 대신해요.'],
+  slots: ['{0} yuva', '{0} slots', '화구 {0}개'], baking: ['{0} pişiyor', '{0} baking', '{0}개 굽는 중'], done_wait: ['{0} çıkarılmayı bekliyor', '{0} waiting to be pulled', '{0}개 꺼내기 대기'], burnt_today: ['Bugün yanan: {0}', 'Burnt today: {0}', '오늘 태움: {0}'],
+  needs: ['Gerekenler', 'Needs', '필요한 것'], waiting: ['Bekleyen: {0}', 'Waiting: {0}', '대기: {0}'], no_unit: ['—', '—', '—'],
+  demand_now: ['Şu anki talep', 'Demand now', '현재 수요'], per_hr: ['{0}/saat', '{0}/hour', '{0}/시간'], spot_note_shop: ['Dükkândan satış raflardan yapılır.', 'The shop sells straight from the racks.', '가게 판매는 진열대에서 바로 이뤄져요.'], tray: ['Tepside', 'On tray', '쟁반'], state_load: ['Tepsi dolduruyor', 'Loading tray', '쟁반 채우는 중'], state_go: ['Yolda', 'Walking out', '나가는 중'], state_sell: ['Satıyor', 'Selling', '판매 중'], state_back: ['Geri dönüyor', 'Walking back', '돌아오는 중'],
+  worker_card: ['Çalışan', 'Worker', '직원'], stock_title: ['Raf stoğu', 'Shelf stock', '진열 재고'], target_short: ['hedef', 'target', '목표'],
   // summary + end
-  sum_title: ['Gün {0} bitti', 'Day {0} is over'], sum_rev: ['Satış geliri', 'Sales income'], sum_contract: ['Sözleşme geliri', 'Contract income'], sum_buy: ['Malzeme alımı', 'Ingredients bought'], sum_invest: ['Yükseltme ve işe alım', 'Upgrades and hiring'], sum_fines: ['Sözleşme cezaları', 'Contract fines'], sum_wages: ['Yevmiyeler', 'Wages'], sum_rent: ['Kira', 'Rent'], sum_fuel: ['Odun', 'Wood'], sum_net: ['Kasa değişimi', 'Change in till'],
-  sum_sold: ['Satılan', 'Sold'], sum_missed: ['Kaçan müşteri', 'Lost buyers'], sum_burnt: ['Yanan', 'Burnt'], sum_wasted: ['Bayatlayan', 'Went stale'], sum_rep: ['İtibar', 'Reputation'], sum_cash: ['Kasa', 'Till'], next_day: ['Sonraki gün', 'Next day'],
-  tip_miss: ['Çok müşteri kaçtı: raf hedefini artır, fırın ya da yoğurma hızını yükselt, daha çok simitçi gönder.', 'Many buyers were lost: raise the shelf target, speed up the oven or kneading, send more simitçi.'],
-  tip_burn: ['Simitler yandı: fırına bir işçi ata, yuvaları fazla doldurma.', 'Bread burnt: put a worker on the oven.'],
-  tip_stale: ['Çok ürün bayatladı: raf hedefini düşür ya da fiyatı biraz indir.', 'A lot went stale: lower the shelf target or the price a little.'],
-  tip_ok: ['Güzel gün! Parayı yükseltmelere ve yeni tariflere yatır.', 'A good day! Invest in upgrades and new recipes.'],
-  tip_cash: ['Kasa tehlikede: işçi sayısını ve masrafları gözden geçir.', 'Cash is tight: review headcount and expenses.'],
-  win_title: ['Mahallenin en ünlü fırını!', 'The most famous bakery on the street!'], win_text: ['{0}. günde kasada {1} ve {2} yıldız itibar.', 'On day {0}: {1} in the till and {2} stars.'],
-  lose_title: ['İflas!', 'Bankrupt!'], lose_text: ['Gece masraflarından sonra kasa eksiye düştü. Üretimi satışa, ekibi gelire göre ayarla.', 'After the night costs the till went negative. Match production to sales and the team to income.'],
-  time_title: ['Süre doldu', 'Time is up'], time_text: ['{0}. günde hedefe ulaşılamadı: kasa {1}, itibar {2} yıldız. Sonsuz modda devam edebilirsin.', 'The goal was missed on day {0}: {1} in the till, {2} stars. You can carry on in endless mode.'],
-  endless: ['Sonsuz modda devam et', 'Continue in endless mode'], again: ['Tekrar oyna', 'Play again'], new_record: ['Yeni rekor!', 'New record!'], days_played: ['Oynanan gün', 'Days played'], stars: ['Yıldız', 'Stars'],
+  sum_title: ['Gün {0} bitti', 'Day {0} is over', '{0}일차 종료'], sum_rev: ['Satış geliri', 'Sales income', '판매 수입'], sum_contract: ['Sözleşme geliri', 'Contract income', '계약 수입'], sum_buy: ['Malzeme alımı', 'Ingredients bought', '재료 구입'], sum_invest: ['Yükseltme ve işe alım', 'Upgrades and hiring', '업그레이드·고용'], sum_fines: ['Sözleşme cezaları', 'Contract fines', '계약 벌금'], sum_wages: ['Yevmiyeler', 'Wages', '일급'], sum_rent: ['Kira', 'Rent', '임대료'], sum_fuel: ['Odun', 'Wood', '장작'], sum_net: ['Kasa değişimi', 'Change in till', '금고 변동'],
+  sum_sold: ['Satılan', 'Sold', '판매'], sum_missed: ['Kaçan müşteri', 'Lost buyers', '놓친 손님'], sum_burnt: ['Yanan', 'Burnt', '태움'], sum_wasted: ['Bayatlayan', 'Went stale', '상함'], sum_rep: ['İtibar', 'Reputation', '평판'], sum_cash: ['Kasa', 'Till', '금고'], next_day: ['Sonraki gün', 'Next day', '다음 날'],
+  tip_miss: ['Çok müşteri kaçtı: raf hedefini artır, fırın ya da yoğurma hızını yükselt, daha çok simitçi gönder.', 'Many buyers were lost: raise the shelf target, speed up the oven or kneading, send more simitçi.', '손님을 많이 놓쳤어요: 진열 목표를 올리고, 오븐이나 반죽 속도를 높이고, 판매원을 더 보내세요.'],
+  tip_burn: ['Simitler yandı: fırına bir işçi ata, yuvaları fazla doldurma.', 'Bread burnt: put a worker on the oven.', '빵이 탔어요: 오븐에 직원을 배치하고 화구를 과하게 채우지 마세요.'],
+  tip_stale: ['Çok ürün bayatladı: raf hedefini düşür ya da fiyatı biraz indir.', 'A lot went stale: lower the shelf target or the price a little.', '빵이 많이 상했어요: 진열 목표를 낮추거나 가격을 조금 내려보세요.'],
+  tip_ok: ['Güzel gün! Parayı yükseltmelere ve yeni tariflere yatır.', 'A good day! Invest in upgrades and new recipes.', '좋은 하루! 번 돈을 업그레이드와 새 레시피에 투자하세요.'],
+  tip_cash: ['Kasa tehlikede: işçi sayısını ve masrafları gözden geçir.', 'Cash is tight: review headcount and expenses.', '금고가 위험해요: 직원 수와 지출을 살펴보세요.'],
+  win_title: ['Mahallenin en ünlü fırını!', 'The most famous bakery on the street!', '동네에서 가장 유명한 베이커리!'], win_text: ['{0}. günde kasada {1} ve {2} yıldız itibar.', 'On day {0}: {1} in the till and {2} stars.', '{0}일차: 금고 {1}, 평판 별 {2}개.'],
+  lose_title: ['İflas!', 'Bankrupt!', '파산!'], lose_text: ['Gece masraflarından sonra kasa eksiye düştü. Üretimi satışa, ekibi gelire göre ayarla.', 'After the night costs the till went negative. Match production to sales and the team to income.', '밤 비용을 내고 금고가 마이너스가 됐어요. 생산을 판매에, 직원을 수입에 맞춰보세요.'],
+  time_title: ['Süre doldu', 'Time is up', '시간 종료'], time_text: ['{0}. günde hedefe ulaşılamadı: kasa {1}, itibar {2} yıldız. Sonsuz modda devam edebilirsin.', 'The goal was missed on day {0}: {1} in the till, {2} stars. You can carry on in endless mode.', '{0}일차에 목표를 달성하지 못했어요: 금고 {1}, 평판 별 {2}개. 무한 모드로 계속할 수 있어요.'],
+  endless: ['Sonsuz modda devam et', 'Continue in endless mode', '무한 모드로 계속'], again: ['Tekrar oyna', 'Play again', '다시 하기'], new_record: ['Yeni rekor!', 'New record!', '신기록!'], days_played: ['Oynanan gün', 'Days played', '플레이 일수'], stars: ['Yıldız', 'Stars', '별'],
   // toasts
-  tst_burnt: ['Pişen ürün yandı!', 'A tray burnt!'], tst_delivery: ['Tedarikçi geldi: {0} × {1}', 'Supplier van arrived: {0} × {1}'], tst_cok: ['Sözleşme tamam: +{0}', 'Contract delivered: +{0}'], tst_cfail: ['Sözleşme tutmadı: -{0}, itibar düştü', 'Contract missed: -{0}, reputation drops'],
-  tst_skill: ['{0} yeni bir beceri seviyesine ulaştı', '{0} reached a new skill level'], tst_out: ['{0} bitti: {1} duruyor', 'Out of {0}: {1} stopped'], tst_hire: ['{0} ekibe katıldı', '{0} joined the team'], tst_upg: ['Yükseltme tamam', 'Upgrade done'],
-  tst_open: ['Dükkân açıldı', 'The shop is open'], tst_full: ['Raflar dolu: fırın bekliyor', 'Racks are full: the oven waits'], tst_ordered: ['Sipariş verildi', 'Order placed'], tst_assigned: ['{0} → {1}', '{0} → {1}'], tst_saved: ['Kaydedildi', 'Saved'], tst_wxmod: ['{0}', '{0}'], tst_restock: ['Fırında işçi yok', 'No worker at the oven'], tst_oven_unattended: ['Fırın 30 sn sahipsiz kaldı: simitler yanıyor!', 'Oven unattended for 30s: bread is burning!'],
-  tst_worker_sel: ['{0} seçildi: istasyona veya noktaya dokun', '{0} selected: tap a station or spot to assign'],
-  hint: ['Sürükle ya da dokun-ata: işçiyi tezgâha veya sokak noktasına ata · Tekerlek / kıstır: yakınlaştır', 'Drag or tap-to-assign: assign worker to a station or street spot · Wheel / pinch: zoom'],
-  selected: ['Seçildi', 'Selected'], assign_to: ['İstasyon ata', 'Assign to station'], idle_st: ['Boş', 'Idle'],
-  tap_hint_side: ['Sahnede bir istasyona dokunarak veya yukarıdan seçerek atayabilirsin.', 'Tap a station in the scene or select above to assign.'],
-  footer: ['Claude Game Arena · built by Claude Sonnet 5.5', 'Claude Game Arena · built by Claude Sonnet 5.5'],
-  mus_on: ['Müzik açık', 'Music on'], mus_off: ['Müzik kapalı', 'Music off'], sfx_on: ['Efektler açık', 'Effects on'], sfx_off: ['Efektler kapalı', 'Effects off'],
-  confirm_restart: ['Yeniden başlansın mı? Mevcut gün kaybolur.', 'Restart? The current run is lost.'],
+  tst_burnt: ['Pişen ürün yandı!', 'A tray burnt!', '굽던 빵이 탔어요!'], tst_delivery: ['Tedarikçi geldi: {0} × {1}', 'Supplier van arrived: {0} × {1}', '공급차 도착: {0} × {1}'], tst_cok: ['Sözleşme tamam: +{0}', 'Contract delivered: +{0}', '계약 납품 완료: +{0}'], tst_cfail: ['Sözleşme tutmadı: -{0}, itibar düştü', 'Contract missed: -{0}, reputation drops', '계약 실패: -{0}, 평판 하락'],
+  tst_skill: ['{0} yeni bir beceri seviyesine ulaştı', '{0} reached a new skill level', '{0}의 숙련도가 올랐어요'], tst_out: ['{0} bitti: {1} duruyor', 'Out of {0}: {1} stopped', '{0} 부족: {1} 정지'], tst_hire: ['{0} ekibe katıldı', '{0} joined the team', '{0}이(가) 팀에 합류했어요'], tst_upg: ['Yükseltme tamam', 'Upgrade done', '업그레이드 완료'],
+  tst_open: ['Dükkân açıldı', 'The shop is open', '가게를 열었어요'], tst_full: ['Raflar dolu: fırın bekliyor', 'Racks are full: the oven waits', '진열대가 가득 찼어요: 오븐 대기'], tst_ordered: ['Sipariş verildi', 'Order placed', '주문 완료'], tst_assigned: ['{0} → {1}', '{0} → {1}', '{0} → {1}'], tst_saved: ['Kaydedildi', 'Saved', '저장됨'], tst_wxmod: ['{0}', '{0}', '{0}'], tst_restock: ['Fırında işçi yok', 'No worker at the oven', '오븐에 직원이 없어요'], tst_oven_unattended: ['Fırın 30 sn sahipsiz kaldı: simitler yanıyor!', 'Oven unattended for 30s: bread is burning!', '오븐이 30초 방치됐어요: 빵이 타고 있어요!'],
+  tst_worker_sel: ['{0} seçildi: istasyona veya noktaya dokun', '{0} selected: tap a station or spot to assign', '{0} 선택됨: 작업대나 지점을 눌러 배치하세요'],
+  hint: ['Sürükle ya da dokun-ata: işçiyi tezgâha veya sokak noktasına ata · Tekerlek / kıstır: yakınlaştır', 'Drag or tap-to-assign: assign worker to a station or street spot · Wheel / pinch: zoom', '드래그 또는 눌러서 배치: 직원을 작업대·거리 지점에 배정 · 휠 / 핀치: 확대·축소'],
+  selected: ['Seçildi', 'Selected', '선택됨'], assign_to: ['İstasyon ata', 'Assign to station', '작업대 배치'], idle_st: ['Boş', 'Idle', '대기'],
+  tap_hint_side: ['Sahnede bir istasyona dokunarak veya yukarıdan seçerek atayabilirsin.', 'Tap a station in the scene or select above to assign.', '화면 속 작업대를 누르거나 위에서 선택해 배치할 수 있어요.'],
+  footer: ['Claude Game Arena · built by Claude Sonnet 5.5', 'Claude Game Arena · built by Claude Sonnet 5.5', 'Claude Game Arena · built by Claude Sonnet 5.5'],
+  mus_on: ['Müzik açık', 'Music on', '음악 켜짐'], mus_off: ['Müzik kapalı', 'Music off', '음악 꺼짐'], sfx_on: ['Efektler açık', 'Effects on', '효과음 켜짐'], sfx_off: ['Efektler kapalı', 'Effects off', '효과음 꺼짐'],
+  confirm_restart: ['Yeniden başlansın mı? Mevcut gün kaybolur.', 'Restart? The current run is lost.', '다시 시작할까요? 현재 진행이 사라져요.'],
   // Mayalanma Penceresi + altın pişme
-  how5: ['Hamuru havaya göre dinlendir; simit altın renge dönünce fırından çek (G).', 'Rest the dough to suit the weather; pull the simit the moment it turns golden (G).'],
-  st_proof: ['Mayalanma Penceresi', 'Proofing Window'], proof_lvl0: ['Kısa', 'Short'], proof_lvl1: ['Normal', 'Normal'], proof_lvl2: ['Uzun', 'Long'], proof_min: ['{0} dk', '{0} min'],
-  proof_win: ['Bugün ({0}) simit için ideal mayalanma {1}–{2} dk · dinlendirme {3} dk', 'Today ({0}) simit proofs best for {1}–{2} min · rest timer {3} min'],
-  pf_0: ['Az mayalanır: simit ağır ve sıkı çıkar (fiyat −%15, itibar düşer).', 'Under-proofed: dense simit (price −15%, reputation drops).'],
-  pf_1: ['Pencerenin içinde: ideal kabarma.', 'Inside the window: an ideal rise.'],
-  pf_2: ['Fazla mayalanır: hamur çöker (fiyat −%30, itibar düşer).', 'Over-proofed: the dough collapses (price −30%, reputation drops).'],
-  proof_note: ['Şekillenen hamur fırından önce tahtada dinlenir. Sıcakta çabuk, soğukta geç kabarır. Fırın yetişmezse bekleyen hamur da fazla mayalanır: ikinci fırın ya da fırına ikinci işçi yardımcı olur.', 'Shaped dough rests on the board before the oven. It rises fast in the heat and slowly in the cold. If the oven cannot keep up, waiting dough over-proofs too: a second oven or a second baker on the oven helps.'],
-  proof_today: ['Bugün: ideal {0} · ağır {1} · çökük {2} · altın {3}', 'Today: ideal {0} · dense {1} · collapsed {2} · golden {3}'],
-  board: ['Tahtada dinlenen', 'Resting on the board'], oven_n: ['Fırın {0}', 'Oven {0}'],
-  gold_title: ['Altın pişme', 'Golden bake'], gold_btn: ['Altın çek', 'Golden pull'], gold_now: ['Altın an!', 'Golden!'], burn_now: ['Yanıyor!', 'Burning!'],
-  gold_hint: ['Simit altın renge dönünce fırın parlar ve zil çalar: o an G tuşuna ya da Altın çek düğmesine bas, fiyat +%25. Erken ya da geç basarsan kürek 2 sn bekler.', 'When the simit turns golden the oven glows and a bell rings: press G or Golden pull right then for +25% price. Too early or too late and the peel needs 2 s.'],
-  tst_gold: ['Altın pişme! {0} parça +%25', 'Golden bake! {0} pieces +25%'],
-  why_peelcd: ['Kürek henüz hazır değil.', 'The peel is not ready yet.'], why_peelmiss: ['Erken ya da geç: fırında altın an yok.', 'Too early or too late: nothing in the oven is golden.'], why_rackfull: ['Raflar dolu.', 'The racks are full.'], why_kind: ['Olmaz.', 'Not possible.'],
-  sum_gold: ['Altın pişme', 'Golden bakes'], sum_quality: ['Mayalanma: ideal %{0} · ağır {1} · çökük {2}', 'Proofing: {0}% ideal · {1} dense · {2} collapsed'],
-  tip_over: ['Hamurun çoğu çöktü: dinlendirmeyi kısalt ya da fırına ikinci işçi koy.', 'Much of the dough collapsed: shorten the rest or put a second baker on the oven.'],
-  tip_under: ['Hamur az mayalandı: soğukta dinlendirmeyi uzat.', 'The dough was under-proofed: rest it longer in the cold.'],
-  tut_next: ['İleri', 'Next'],
-  tut_finish: ['Tamamla', 'Finish'],
-  tut_skip: ['Atla', 'Skip'],
-  tut_tip_order: ['+20 un al veya İleri\'ye bas', 'Order +20 flour or press Next'],
-  tut_tip_open: ['Dükkânı aç veya İleri\'ye bas', 'Open the shop or press Next'],
-  tut_tip_knead: ['Yoğurmaya tıkla veya İleri\'ye bas', 'Click knead or press Next'],
-  tut_tip_worker: ['Çırağa dokun veya İleri\'ye bas', 'Tap apprentice or press Next'],
-  tut_tip_oven: ['Fırına dokun veya Tamamla\'ya bas', 'Tap oven or press Finish'],
-  tut_step1_t: ['1. Malzeme Tedariği: Un Siparişi', '1. Supply: Order Flour'],
-  tut_step1_d: ['Simit üretimi un ile başlar. Buradan un sipariş ederek yoğurma stoğunu hazırla.', 'Simit production starts with flour. Order flour here to keep kneading stocked.'],
-  tut_step2_t: ['2. Fırını ve Dükkânı Aç', '2. Open the Bakery'],
-  tut_step2_d: ['Tedarik tamam! Dükkânı açarak fırını çalıştır ve günü başlat.', 'Supplies ready! Open the shop to start production and welcome buyers.'],
-  tut_step3_t: ['3. Yoğurma Tezgâhı', '3. Kneading Station'],
-  tut_step3_d: ['Un ve su burada yoğrulur. Hamur sırayla şekil verme, pekmez ve susama geçer.', 'Flour and water are kneaded here, then shaped, dipped in molasses, and rolled in sesame.'],
-  tut_step4_t: ['4. Çırak / İşçi Seçimi', '4. Select an Apprentice'],
-  tut_step4_d: ['Fırındaki çırağa dokunarak onu seç. Seçilen çırağa yeni görev verebilirsin.', 'Tap or click an apprentice to select them and give them a task.'],
-  tut_step5_t: ['5. Görev Atama (Fırın)', '5. Assign Worker (Oven)'],
-  tut_step5_d: ['Çırağını fırına atayarak pişen simitlerin yanmasını önle ve tepsileri vaktinde çıkar!', 'Assign your worker to the oven to pull hot simit on time and prevent burning!'],
-  tut_finished: ['Eğitim tamamlandı! İyi çalışmalar usta.', 'Tutorial completed! Happy baking, master.'],
+  how5: ['Hamuru havaya göre dinlendir; simit altın renge dönünce fırından çek (G).', 'Rest the dough to suit the weather; pull the simit the moment it turns golden (G).', '날씨에 맞게 반죽을 휴지시키고, 시밋이 황금색이 되는 순간 오븐에서 꺼내세요 (G).'],
+  st_proof: ['Mayalanma Penceresi', 'Proofing Window', '발효 시간대'], proof_lvl0: ['Kısa', 'Short', '짧게'], proof_lvl1: ['Normal', 'Normal', '보통'], proof_lvl2: ['Uzun', 'Long', '길게'], proof_min: ['{0} dk', '{0} min', '{0}분'],
+  proof_win: ['Bugün ({0}) simit için ideal mayalanma {1}–{2} dk · dinlendirme {3} dk', 'Today ({0}) simit proofs best for {1}–{2} min · rest timer {3} min', '오늘({0}) 시밋의 이상적인 발효는 {1}–{2}분 · 휴지 타이머 {3}분'],
+  pf_0: ['Az mayalanır: simit ağır ve sıkı çıkar (fiyat −%15, itibar düşer).', 'Under-proofed: dense simit (price −15%, reputation drops).', '발효 부족: 빵이 무겁고 단단해져요 (가격 −15%, 평판 하락).'],
+  pf_1: ['Pencerenin içinde: ideal kabarma.', 'Inside the window: an ideal rise.', '적정 범위 안: 이상적인 부풀기.'],
+  pf_2: ['Fazla mayalanır: hamur çöker (fiyat −%30, itibar düşer).', 'Over-proofed: the dough collapses (price −30%, reputation drops).', '과발효: 반죽이 꺼져요 (가격 −30%, 평판 하락).'],
+  proof_note: ['Şekillenen hamur fırından önce tahtada dinlenir. Sıcakta çabuk, soğukta geç kabarır. Fırın yetişmezse bekleyen hamur da fazla mayalanır: ikinci fırın ya da fırına ikinci işçi yardımcı olur.', 'Shaped dough rests on the board before the oven. It rises fast in the heat and slowly in the cold. If the oven cannot keep up, waiting dough over-proofs too: a second oven or a second baker on the oven helps.', '성형된 반죽은 오븐 전에 도마 위에서 휴지해요. 더우면 빨리, 추우면 느리게 부풀어요. 오븐이 못 따라가면 기다리는 반죽도 과발효돼요: 두 번째 오븐이나 오븐 담당 추가가 도움돼요.'],
+  proof_today: ['Bugün: ideal {0} · ağır {1} · çökük {2} · altın {3}', 'Today: ideal {0} · dense {1} · collapsed {2} · golden {3}', '오늘: 이상적 {0} · 단단 {1} · 꺼짐 {2} · 황금 {3}'],
+  board: ['Tahtada dinlenen', 'Resting on the board', '도마에서 휴지 중'], oven_n: ['Fırın {0}', 'Oven {0}', '오븐 {0}'],
+  gold_title: ['Altın pişme', 'Golden bake', '황금 굽기'], gold_btn: ['Altın çek', 'Golden pull', '황금 꺼내기'], gold_now: ['Altın an!', 'Golden!', '황금 순간!'], burn_now: ['Yanıyor!', 'Burning!', '타고 있어요!'],
+  gold_hint: ['Simit altın renge dönünce fırın parlar ve zil çalar: o an G tuşuna ya da Altın çek düğmesine bas, fiyat +%25. Erken ya da geç basarsan kürek 2 sn bekler.', 'When the simit turns golden the oven glows and a bell rings: press G or Golden pull right then for +25% price. Too early or too late and the peel needs 2 s.', '시밋이 황금색이 되면 오븐이 빛나고 종이 울려요: 바로 그때 G키나 황금 꺼내기 버튼을 누르면 가격 +25%. 너무 빠르거나 늦으면 꺼내는 삽이 2초 대기해요.'],
+  tst_gold: ['Altın pişme! {0} parça +%25', 'Golden bake! {0} pieces +25%', '황금 굽기! {0}개 +25%'],
+  why_peelcd: ['Kürek henüz hazır değil.', 'The peel is not ready yet.', '삽이 아직 준비되지 않았어요.'], why_peelmiss: ['Erken ya da geç: fırında altın an yok.', 'Too early or too late: nothing in the oven is golden.', '너무 빠르거나 늦었어요: 오븐에 황금 순간이 없어요.'], why_rackfull: ['Raflar dolu.', 'The racks are full.', '진열대가 가득 찼어요.'], why_kind: ['Olmaz.', 'Not possible.', '할 수 없어요.'],
+  sum_gold: ['Altın pişme', 'Golden bakes', '황금 굽기'], sum_quality: ['Mayalanma: ideal %{0} · ağır {1} · çökük {2}', 'Proofing: {0}% ideal · {1} dense · {2} collapsed', '발효: 이상적 {0}% · 단단 {1} · 꺼짐 {2}'],
+  tip_over: ['Hamurun çoğu çöktü: dinlendirmeyi kısalt ya da fırına ikinci işçi koy.', 'Much of the dough collapsed: shorten the rest or put a second baker on the oven.', '반죽이 많이 꺼졌어요: 휴지 시간을 줄이거나 오븐에 두 번째 직원을 배치하세요.'],
+  tip_under: ['Hamur az mayalandı: soğukta dinlendirmeyi uzat.', 'The dough was under-proofed: rest it longer in the cold.', '반죽 발효가 부족했어요: 추울 때는 휴지를 더 길게 하세요.'],
+  tut_next: ['İleri', 'Next', '다음'],
+  tut_finish: ['Tamamla', 'Finish', '완료'],
+  tut_skip: ['Atla', 'Skip', '건너뛰기'],
+  tut_tip_order: ['+20 un al veya İleri\'ye bas', 'Order +20 flour or press Next', '밀가루 +20을 주문하거나 다음을 누르세요'],
+  tut_tip_open: ['Dükkânı aç veya İleri\'ye bas', 'Open the shop or press Next', '가게를 열거나 다음을 누르세요'],
+  tut_tip_knead: ['Yoğurmaya tıkla veya İleri\'ye bas', 'Click knead or press Next', '반죽을 누르거나 다음을 누르세요'],
+  tut_tip_worker: ['Çırağa dokun veya İleri\'ye bas', 'Tap apprentice or press Next', '견습생을 누르거나 다음을 누르세요'],
+  tut_tip_oven: ['Fırına dokun veya Tamamla\'ya bas', 'Tap oven or press Finish', '오븐을 누르거나 완료를 누르세요'],
+  tut_step1_t: ['1. Malzeme Tedariği: Un Siparişi', '1. Supply: Order Flour', '1. 재료 발주: 밀가루 주문'],
+  tut_step1_d: ['Simit üretimi un ile başlar. Buradan un sipariş ederek yoğurma stoğunu hazırla.', 'Simit production starts with flour. Order flour here to keep kneading stocked.', '시밋 생산은 밀가루에서 시작해요. 여기서 밀가루를 주문해 반죽 재고를 준비하세요.'],
+  tut_step2_t: ['2. Fırını ve Dükkânı Aç', '2. Open the Bakery', '2. 가게와 오븐 열기'],
+  tut_step2_d: ['Tedarik tamam! Dükkânı açarak fırını çalıştır ve günü başlat.', 'Supplies ready! Open the shop to start production and welcome buyers.', '준비 완료! 가게를 열어 오븐을 돌리고 하루를 시작하세요.'],
+  tut_step3_t: ['3. Yoğurma Tezgâhı', '3. Kneading Station', '3. 반죽 작업대'],
+  tut_step3_d: ['Un ve su burada yoğrulur. Hamur sırayla şekil verme, pekmez ve susama geçer.', 'Flour and water are kneaded here, then shaped, dipped in molasses, and rolled in sesame.', '밀가루와 물을 여기서 반죽해요. 반죽은 성형, 당밀, 참깨 단계를 차례로 거쳐요.'],
+  tut_step4_t: ['4. Çırak / İşçi Seçimi', '4. Select an Apprentice', '4. 견습생 / 직원 선택'],
+  tut_step4_d: ['Fırındaki çırağa dokunarak onu seç. Seçilen çırağa yeni görev verebilirsin.', 'Tap or click an apprentice to select them and give them a task.', '가게 안의 견습생을 눌러 선택하세요. 선택한 견습생에게 새 작업을 줄 수 있어요.'],
+  tut_step5_t: ['5. Görev Atama (Fırın)', '5. Assign Worker (Oven)', '5. 작업 배치 (오븐)'],
+  tut_step5_d: ['Çırağını fırına atayarak pişen simitlerin yanmasını önle ve tepsileri vaktinde çıkar!', 'Assign your worker to the oven to pull hot simit on time and prevent burning!', '견습생을 오븐에 배치해 시밋이 타지 않게 하고 제때 꺼내세요!'],
+  tut_finished: ['Eğitim tamamlandı! İyi çalışmalar usta.', 'Tutorial completed! Happy baking, master.', '튜토리얼 완료! 맛있게 구워보세요, 사장님.'],
+  // Korean edition: in-world sign text (canvas textures)
+  sign_menu_title: ['GÜNÜN MENÜSÜ', "TODAY'S MENU", '오늘의 메뉴'], sign_sicak: ['SICAK', 'HOT', '갓 구운'],
+  sign_simit: ['SİMİT', 'SIMIT', '시밋'], sign_shop: ['SİMİT FIRINI', 'SIMIT FIRINI', '시밋 베이커리'], p_cay: ['Çay', 'Tea', '홍차'],
+
 });
 
 // =============================================================================================
@@ -4416,19 +4437,19 @@ function hudUpdate(force) {
   $('bPause').innerHTML = ic(ui.paused ? 'play' : 'pause'); $('bPause').setAttribute('aria-label', ui.paused ? t('resume') : t('pause')); $('bPause').title = ui.paused ? t('resume') : t('pause') + ' (P)';
   $('bMusic').innerHTML = ic(settings.musicOn ? 'music' : 'musicOff'); $('bMusic').title = t('music'); $('bMusic').setAttribute('aria-label', t('music'));
   $('bSfx').innerHTML = ic(settings.sfxOn ? 'speaker' : 'speakerOff'); $('bSfx').title = t('sfx'); $('bSfx').setAttribute('aria-label', t('sfx'));
-  $('bLang').textContent = t('langBtn'); $('bLang').title = t('language'); $('bLang').setAttribute('aria-label', t('language'));
+  $('bLang').textContent = LANG_SHORT[nextLang(settings.lang)]; $('bLang').title = t('language'); $('bLang').setAttribute('aria-label', t('language'));
   for (const b of $('speedSeg').children) { b.classList.toggle('on', +b.dataset.speed === ui.speed); b.setAttribute('aria-pressed', +b.dataset.speed === ui.speed ? 'true' : 'false'); }
   const dock = $('dock'); const dh = '<button class="btn" data-act="plan" id="dPlan">' + ic('chart') + '<span>' + (S.phase === 'plan' ? t('plan') : t('plan')) + '</span></button><button class="btn' + (ui.salesOpen ? ' on' : '') + '" data-act="sales" id="dSales">' + ic('coin') + '<span>' + t('sales') + '</span></button>' + (S.phase === 'plan' ? '<button class="btn primary" data-act="open" id="dOpen">' + ic('play') + '<span>' + t('open_shop') + '</span></button>' : '')
     + (S.phase === 'day' ? '<button class="btn" data-act="peel" data-a="" id="dPeel" title="' + t('gold_hint') + '">' + ic('flame') + '<span>' + t('gold_btn') + (coarse ? '' : ' (G)') + '</span></button>' : '');
   setHTML(dock, dh);
 }
 function applyLang() {
-  document.documentElement.lang = settings.lang; document.title = 'Simit Fırını'; if (window.Arena) Arena.lang(settings.lang);
+  document.documentElement.lang = settings.lang; document.title = t('app'); if (window.Arena) Arena.lang(settings.lang); TEX_REDRAW.forEach(function (f) { try { f(); } catch (e) {} });
   // stil-3d: the song video's simit seller and tourist girl with a 3D simit stand on the title card instead of the drawn logo
-  $('brand').innerHTML = img3('urun-simit') + '<span>Simit Fırını</span>'; $('tLogo').className = 'logo logo3'; $('tLogo').innerHTML = img3('poz-simitci') + img3('urun-simit', 'simit') + img3('poz-turist');
+  $('brand').innerHTML = img3('urun-simit') + '<span>' + t('app') + '</span>'; if ($('tTitle')) $('tTitle').textContent = t('app'); $('tLogo').className = 'logo logo3'; $('tLogo').innerHTML = img3('poz-simitci') + img3('urun-simit', 'simit') + img3('poz-turist');
   $('tTag').textContent = t('tag'); $('tBunting').innerHTML = buntingSvg();
   $('tHow').innerHTML = '<li>' + t('how1') + '</li><li>' + t('how2') + '</li><li>' + t('how3', GOAL_DAY, money(GOAL_LIRA), GOAL_REP) + '</li><li>' + t('how5') + '</li><li>' + t('how4') + '</li>';
-  $('bPlay').textContent = t('play'); $('bCont').textContent = t('cont'); $('bSet').innerHTML = ic('gear') + '<span>' + t('settings') + '</span>'; $('bLangT').innerHTML = ic('globe') + '<span>' + t('langName') + '</span>';
+  $('bPlay').textContent = t('play'); $('bCont').textContent = t('cont'); $('bSet').innerHTML = ic('gear') + '<span>' + t('settings') + '</span>'; $('bLangT').innerHTML = ic('globe') + '<span>' + LANG_LABEL[nextLang(settings.lang)] + '</span>';
   $('hint').textContent = t('hint'); $('footer').innerHTML = 'Claude Game Arena · built by <a href="https://github.com/Furkiozknn" target="_blank" rel="noopener">Claude Sonnet 5.5</a>';
   $('plClose').innerHTML = ic('close'); $('plClose').setAttribute('aria-label', t('close'));
   $('pTitle').textContent = t('paused'); $('sTitle').textContent = t('set_title'); $('sClose').textContent = t('done');
@@ -4460,7 +4481,7 @@ function renderInfo(kind) {
   $('inTitle').textContent = t('runs_title');
   const runs = store.get(KEY.runs, []), list = Array.isArray(runs) ? runs : [];
   if (!list.length) { $('inBody').innerHTML = '<p class="sub">' + t('runs_none') + '</p>'; return; }
-  const loc = settings.lang === 'en' ? 'en-GB' : 'tr-TR';
+  const loc = settings.lang === 'en' ? 'en-GB' : settings.lang === 'tr' ? 'tr-TR' : 'ko-KR';
   const rows = list.map(r => { let d = ''; try { d = new Date(r.t).toLocaleDateString(loc, { day: 'numeric', month: 'short' }); } catch (e) { /* ignore */ }
     return '<tr><td>' + esc(d) + '</td><td>' + t('runs_' + (r.res === 'won' ? 'won' : r.res === 'bankrupt' ? 'bankrupt' : 'time')) + (r.daily ? ' (' + t('runs_daily') + ')' : '') + '</td><td>' + esc(r.day) + '</td><td>' + esc(money(r.lira)) + '</td><td>' + esc(r.rep) + '</td></tr>'; }).join('');
   $('inBody').innerHTML = '<p class="sub">' + t('runs_sum', list.length, list.filter(r => r.res === 'won').length) + '</p><table><thead><tr><th>' + t('runs_date') + '</th><th>' + t('runs_res') + '</th><th>' + t('runs_day') + '</th><th>' + t('runs_cash') + '</th><th>' + t('runs_rep') + '</th></tr></thead><tbody>' + rows + '</tbody></table>';
@@ -4776,7 +4797,7 @@ function renderSettings() {
   const sl = (id, label, v) => '<div class="sliderrow"><label for="' + id + '">' + label + '</label><input type="range" id="' + id + '" min="0" max="100" value="' + Math.round(v * 100) + '" aria-label="' + label + '"><span>' + Math.round(v * 100) + '</span></div>';
   const seg = (name, opts, cur) => '<div class="seg" role="group">' + opts.map(([v, l]) => '<button class="btn' + (cur === v ? ' on' : '') + '" data-set="' + name + '" data-v="' + v + '" aria-pressed="' + (cur === v) + '">' + l + '</button>').join('') + '</div>';
   $('sBody').innerHTML = sl('vMaster', t('vol_master'), settings.master) + sl('vMusic', t('vol_music'), settings.music) + sl('vSfx', t('vol_sfx'), settings.sfx)
-    + '<div class="sliderrow" style="grid-template-columns:110px 1fr"><span>' + t('lang_lbl') + '</span>' + seg('lang', [['tr', 'TR'], ['en', 'EN']], settings.lang) + '</div>'
+    + '<div class="sliderrow" style="grid-template-columns:110px 1fr"><span>' + t('lang_lbl') + '</span>' + seg('lang', [['ko', 'KO'], ['en', 'EN'], ['tr', 'TR']], settings.lang) + '</div>'
     + '<div class="sliderrow" style="grid-template-columns:110px 1fr"><span>' + t('quality') + '</span>' + seg('quality', [['low', t('q_low')], ['high', t('q_high')]], settings.quality) + '</div>'
     + '<div class="sliderrow" style="grid-template-columns:110px 1fr"><span>' + t('fullscreen') + '</span><button class="btn" data-set="fs">' + ic('fs') + '<span>' + t('fullscreen') + '</span></button></div>'
     + (window.Arena ? '<div class="sliderrow" style="grid-template-columns:110px 1fr"><span>' + t('a11y') + '</span><button class="btn" data-set="a11y" id="bA11y">' + t('a11y_open') + '</button></div>' : '');
@@ -4994,7 +5015,7 @@ function saveGame() { store.set(S.daily ? KEY.daily : KEY.save, { v: 1, S }); } 
 // A daily run is a normal 20-day run started from Arena.daily().seed (same weather, apprentices and contracts for
 // everyone that day). It is saved in its own slot, so the campaign run and the best result stay untouched.
 // Score = the till at the end of the run.
-const ARENA_URL = 'https://furkiozknn.github.io/simit-firini/';
+const ARENA_URL = 'https://sigco3111.github.io/simit-firini/';
 const dayText = d => String(d).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3');
 function dailySave(day) { const sv = store.get(KEY.daily); return sv && sv.S && sv.S.v === 1 && sv.S.daily === day ? sv : null; }
 function dailyButton() {
@@ -5016,9 +5037,9 @@ function shareResult() {
   if (!window.Arena) return;
   const line = S.result === 'won' ? t('share_won', S.day, money(S.lira), S.rep.toFixed(1)) : t('share_end', S.day, money(S.lira), S.rep.toFixed(1));
   const lines = [line]; if (S.daily) lines.unshift(t('share_daily', dayText(S.daily), S.dailyRes ? S.dailyRes.streak : 0));
-  Arena.share({ title: 'Simit Fırını', lines, url: ARENA_URL });
+  Arena.share({ title: t('app'), lines, url: ARENA_URL });
 }
-function arenaAward(id, key) { if (window.Arena && !FLAGS.auto) Arena.award('simit-firini:' + id, 'Simit Fırını · ' + t(key)); }
+function arenaAward(id, key) { if (window.Arena && !FLAGS.auto) Arena.award('simit-firini:' + id, t('app') + ' · ' + t(key)); }
 
 // =============================================================================================
 // MAIN: flow, events, input, loop, test hooks
@@ -5198,10 +5219,10 @@ document.addEventListener('click', e => {
 document.addEventListener('change', e => { const t0 = e.target; if (t0.dataset && t0.dataset.sel === 'assign') onAssignSelect(t0.dataset.a, t0.value); });
 function toggleMusic() { settings.musicOn = !settings.musicOn; saveSettings(); audioInit(); audioResume(); if (settings.musicOn) musicStart(); audioApply(); hudUpdate(true); toast(settings.musicOn ? t('mus_on') : t('mus_off'), 'info', 'music'); }
 function toggleSfx() { settings.sfxOn = !settings.sfxOn; saveSettings(); audioInit(); audioResume(); audioApply(); hudUpdate(true); toast(settings.sfxOn ? t('sfx_on') : t('sfx_off'), 'info', 'speaker'); if (settings.sfxOn) SFX.click(); }
-$('bMusic').addEventListener('click', toggleMusic); $('bSfx').addEventListener('click', toggleSfx); $('bLang').addEventListener('click', () => setLang(settings.lang === 'tr' ? 'en' : 'tr'));
+$('bMusic').addEventListener('click', toggleMusic); $('bSfx').addEventListener('click', toggleSfx); $('bLang').addEventListener('click', () => setLang(nextLang(settings.lang)));
 $('bNews').addEventListener('click', () => openInfo('news')); $('bRuns').addEventListener('click', () => openInfo('runs')); $('inClose').addEventListener('click', closeInfo);
 $('infoM').addEventListener('click', e => { if (e.target === $('infoM')) closeInfo(); });
-$('bLangT').addEventListener('click', () => setLang(settings.lang === 'tr' ? 'en' : 'tr'));
+$('bLangT').addEventListener('click', () => setLang(nextLang(settings.lang)));
 $('bPause').addEventListener('click', () => { if (S.phase === 'day' || ui.paused) setPaused(!ui.paused); });
 $('bPlay').addEventListener('click', () => startNew()); $('bCont').addEventListener('click', () => continueGame());
 $('bDaily').addEventListener('click', () => startDaily(false));
@@ -5223,7 +5244,7 @@ window.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   const k = e.key.toLowerCase();
   if (k === 'escape' || k === 'p') { e.preventDefault(); if (k === 'p' && (!ui.inGame || open$('planM') || open$('summary') || open$('endM') || open$('settings') || open$('infoM'))) return; onEscape(); return; }
-  if (k === 'm') { toggleMusic(); return; } if (k === 'x') { toggleSfx(); return; } if (k === 'l') { setLang(settings.lang === 'tr' ? 'en' : 'tr'); return; }
+  if (k === 'm') { toggleMusic(); return; } if (k === 'x') { toggleSfx(); return; } if (k === 'l') { setLang(nextLang(settings.lang)); return; }
   if (k === 'f') { toggleFs(); return; }
   if (!ui.inGame || modalBlocking()) return;
   if (k === '1' || k === '2' || k === '3') { ui.speed = [1, 2, 4][+k - 1]; hudUpdate(true); return; }
